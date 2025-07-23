@@ -2,41 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Meme Launchpad Design System - Vibrant DeFi Aesthetic */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Background & Text */
+    --background: 235 15% 7%;
+    --foreground: 280 20% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card System */
+    --card: 235 15% 10%;
+    --card-foreground: 280 15% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Popover */
+    --popover: 235 15% 8%;
+    --popover-foreground: 280 15% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Electric Purple/Pink */
+    --primary: 280 100% 70%;
+    --primary-foreground: 235 15% 7%;
+    --primary-glow: 280 100% 85%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Neon Green */
+    --secondary: 142 100% 65%;
+    --secondary-foreground: 235 15% 7%;
+    --secondary-glow: 142 100% 80%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted */
+    --muted: 235 10% 15%;
+    --muted-foreground: 280 10% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Electric Blue */
+    --accent: 200 100% 70%;
+    --accent-foreground: 235 15% 7%;
+    --accent-glow: 200 100% 85%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status Colors */
+    --success: 142 100% 65%;
+    --success-foreground: 235 15% 7%;
+    --warning: 45 100% 70%;
+    --warning-foreground: 235 15% 7%;
+    --destructive: 0 100% 70%;
+    --destructive-foreground: 235 15% 7%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* UI Elements */
+    --border: 235 15% 20%;
+    --input: 235 15% 12%;
+    --ring: 280 100% 70%;
 
-    --radius: 0.5rem;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%), hsl(320 100% 75%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 100% 65%), hsl(180 100% 70%));
+    --gradient-accent: linear-gradient(135deg, hsl(200 100% 70%), hsl(240 100% 75%));
+    --gradient-hero: linear-gradient(135deg, hsl(280 100% 70% / 0.2), hsl(200 100% 70% / 0.2));
+    --gradient-card: linear-gradient(145deg, hsl(235 15% 10% / 0.8), hsl(235 15% 12% / 0.9));
+
+    /* Shadows & Glows */
+    --shadow-glow: 0 0 30px hsl(280 100% 70% / 0.3);
+    --shadow-secondary: 0 0 25px hsl(142 100% 65% / 0.2);
+    --shadow-accent: 0 0 25px hsl(200 100% 70% / 0.2);
+    --shadow-card: 0 8px 32px hsl(235 15% 5% / 0.4);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +132,68 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(circle at 20% 50%, hsl(280 100% 70% / 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, hsl(200 100% 70% / 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 90%, hsl(142 100% 65% / 0.1) 0%, transparent 50%);
+  }
+}
+
+@layer components {
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .glow-secondary {
+    box-shadow: var(--shadow-secondary);
+  }
+  
+  .glow-accent {
+    box-shadow: var(--shadow-accent);
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-glow {
+  from {
+    box-shadow: 0 0 20px hsl(280 100% 70% / 0.2);
+  }
+  to {
+    box-shadow: 0 0 40px hsl(280 100% 70% / 0.6);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

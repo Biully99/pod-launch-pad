@@ -68,13 +68,13 @@ const LaunchSection = () => {
         <div className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { step: "1", title: "Create Your Meme", desc: "Deploy token with borrowing mechanics", detail: "Launch your memecoin with built-in treasury and borrowing capabilities" },
-              { step: "2", title: "Pod The Token", desc: "Set up lending pool for degens", detail: "Create a pod where lenders can deposit USDC/WETH to earn yield from your borrows" },
-              { step: "3", title: "Borrow & Buy", desc: "Use treasury as collateral", detail: "Borrow against your token holdings to buy back your own chart without selling" },
-              { step: "4", title: "Flywheel Activated", desc: "Price up → Borrow more → Repeat", detail: "Higher price = bigger treasury = more borrow capacity = more buybacks = moon" },
+              { step: "🌱", title: "Plant Your Seed", desc: "Deploy token with borrowing mechanics", detail: "Launch your memecoin with built-in treasury and borrowing capabilities" },
+              { step: "🎒", title: "Pod The Bags", desc: "Set up lending pool for degens", detail: "Create a pod where lenders can deposit USDC/WETH to earn yield from your borrows" },
+              { step: "💰", title: "Lenders Deposit", desc: "Gigachads supply liquidity", detail: "Yield farmers deposit USDC/WETH to earn returns while providing borrow liquidity" },
+              { step: "🚀", title: "Pump Machine", desc: "Borrow → Buy → Moon → Repeat", detail: "Higher price = bigger treasury = more borrow capacity = more buybacks = moon" },
             ].map((item, index) => (
               <Card key={index} className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform group">
-                <div className="w-12 h-12 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4 text-accent-foreground font-bold">
+                <div className="w-12 h-12 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                   {item.step}
                 </div>
                 <h4 className="font-semibold mb-2 text-card-foreground">{item.title}</h4>

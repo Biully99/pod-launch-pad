@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react'
-import { useAccount } from 'wagmi'
+import { usePrivy } from '@privy-io/react-auth'
 import { TokenDeploymentParams } from '@/lib/contracts'
 
 export const useTokenFactory = () => {
-  const { address, isConnected } = useAccount()
+  const { ready, authenticated, user } = usePrivy()
   const [isDeploying, setIsDeploying] = useState(false)
   const [deployReceipt, setDeployReceipt] = useState<any>(null)
   const [deployError, setDeployError] = useState<Error | null>(null)
@@ -15,7 +15,7 @@ export const useTokenFactory = () => {
   const deployToken = useCallback(async (params: TokenDeploymentParams) => {
     console.log('Deploy token called with params:', params)
     
-    if (!isConnected || !address) {
+    if (!ready || !authenticated || !user) {
       throw new Error('Wallet not connected')
     }
 
@@ -43,7 +43,7 @@ export const useTokenFactory = () => {
     } finally {
       setIsDeploying(false)
     }
-  }, [isConnected, address])
+  }, [ready, authenticated, user])
 
   return {
     // State
@@ -58,7 +58,7 @@ export const useTokenFactory = () => {
     deployToken,
     
     // Status
-    isConnected,
-    address
+    isConnected: ready && authenticated,
+    address: user?.wallet?.address || user?.email?.address
   }
 }

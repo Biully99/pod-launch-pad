@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dialog'
 import { Rocket, Upload, DollarSign, Clock, ExternalLink } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
-import { useAccount } from 'wagmi'
+import { usePrivy } from '@privy-io/react-auth'
 import { useTokenFactory } from '@/hooks/useTokenFactory'
 import { getExplorerUrl } from '@/lib/contracts'
 
@@ -30,7 +30,7 @@ const LaunchDialog = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
-  const { isConnected } = useAccount()
+  const { ready, authenticated } = usePrivy()
   const { 
     deployToken, 
     isDeploying, 
@@ -52,7 +52,7 @@ const LaunchDialog = () => {
   }
 
   const handleLaunch = async () => {
-    if (!isConnected) {
+    if (!ready || !authenticated) {
       toast({
         title: "Wallet Not Connected",
         description: "Connect your wallet to Base network first, anon",
@@ -263,12 +263,12 @@ const LaunchDialog = () => {
             className="w-full" 
             variant="hero" 
             size="lg"
-            disabled={!isConnected || isDeploying}
+            disabled={!ready || !authenticated || isDeploying}
           >
             <Rocket className="h-5 w-5 mr-2" />
             {isDeploying 
               ? 'Deploying to Base...' 
-              : isConnected 
+              : (ready && authenticated)
                 ? `Deploy Token (${deploymentFee} ETH)` 
                 : 'Connect Wallet First'
             }

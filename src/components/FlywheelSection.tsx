@@ -52,7 +52,7 @@ const FlywheelSection = () => {
                   desc: "Single-sided deposit", 
                   detail: "Zero IL risk",
                   type: "input",
-                  angle: 180,
+                  angle: 270,
                   step: 1
                 },
                 { 
@@ -61,7 +61,7 @@ const FlywheelSection = () => {
                   desc: "Automatic LP creation", 
                   detail: "Instant liquidity",
                   type: "process",
-                  angle: 270,
+                  angle: 0,
                   step: 2
                 },
                 { 
@@ -70,7 +70,7 @@ const FlywheelSection = () => {
                   desc: "Use LP as collateral", 
                   detail: "Leverage position",
                   type: "process",
-                  angle: 0,
+                  angle: 90,
                   step: 3
                 },
                 { 
@@ -79,7 +79,7 @@ const FlywheelSection = () => {
                   desc: "Market buy pressure", 
                   detail: "Price appreciation",
                   type: "output",
-                  angle: 90,
+                  angle: 180,
                   step: 4
                 }
               ].map((step, index) => {

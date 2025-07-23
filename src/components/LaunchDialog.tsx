@@ -12,11 +12,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Rocket, Upload, DollarSign, Clock, ExternalLink } from 'lucide-react'
+import { Rocket, Upload, DollarSign, Clock, ExternalLink, Eye } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { usePrivy } from '@privy-io/react-auth'
 import { useTokenFactory } from '@/hooks/useTokenFactory'
 import { getExplorerUrl } from '@/lib/contracts'
+import { useNavigate } from 'react-router-dom'
 
 const LaunchDialog = () => {
   console.log('🚀 LaunchDialog rendering...')
@@ -31,12 +32,14 @@ const LaunchDialog = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
   const { ready, authenticated } = usePrivy()
+  const navigate = useNavigate()
   const { 
     deployToken, 
     isDeploying, 
     deploymentFee, 
     deployReceipt, 
-    deployError
+    deployError,
+    podCreationStatus
   } = useTokenFactory()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -95,22 +98,17 @@ const LaunchDialog = () => {
   }
 
   // Handle successful deployment
-  if (deployReceipt) {
+  if (deployReceipt && !isOpen) {
+    const successMessage = podCreationStatus === 'success' 
+      ? `${formData.name} is now live with Peapods Pod created!`
+      : podCreationStatus === 'failed'
+      ? `${formData.name} is live! (Pod creation failed but token works fine)`
+      : `${formData.name} is now live and ready to farm!`;
+      
     toast({
       title: "Token Deployed Successfully! 🎉",
-      description: `${formData.name} is now live and ready to farm!`,
-    })
-    
-    // Reset form and close dialog
-    setIsOpen(false)
-    setFormData({
-      name: '',
-      symbol: '',
-      description: '',
-      maxSupply: '1000000',
-      creatorAllocation: '5',
-    })
-    setSelectedFile(null)
+      description: successMessage,
+    });
   }
 
   // Handle deployment error
@@ -260,17 +258,53 @@ const LaunchDialog = () => {
             }
           </Button>
 
-          {/* Transaction Link */}
+          {/* Transaction Link & Dashboard Button */}
           {deployReceipt && (
-            <div className="text-center">
-              <a 
-                href={getExplorerUrl(deployReceipt.transactionHash)} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-glow transition-colors"
-              >
-                View on BaseScan <ExternalLink className="h-4 w-4" />
-              </a>
+            <div className="space-y-3">
+              <div className="text-center">
+                <a 
+                  href={getExplorerUrl(deployReceipt.transactionHash)} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-glow transition-colors"
+                >
+                  View on BaseScan <ExternalLink className="h-4 w-4" />
+                </a>
+              </div>
+              
+              {deployReceipt.tokenAddress && (
+                <div className="text-center">
+                  <Button 
+                    onClick={() => {
+                      setIsOpen(false);
+                      navigate(`/dashboard/${deployReceipt.tokenAddress}`);
+                    }}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    View Dashboard
+                  </Button>
+                </div>
+              )}
+              
+              {/* Pod Creation Status */}
+              {podCreationStatus !== 'idle' && (
+                <div className="text-center">
+                  <p className="text-xs text-muted-foreground">
+                    Pod Status: <span className={`font-medium ${
+                      podCreationStatus === 'success' ? 'text-emerald-600' : 
+                      podCreationStatus === 'failed' ? 'text-amber-600' : 
+                      'text-blue-600'
+                    }`}>
+                      {podCreationStatus === 'creating' ? 'Creating Pod...' : 
+                       podCreationStatus === 'success' ? 'Pod Created ✓' : 
+                       podCreationStatus === 'failed' ? 'Pod Failed (Token OK)' : 
+                       'Idle'}
+                    </span>
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

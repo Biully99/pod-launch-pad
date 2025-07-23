@@ -38,7 +38,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Diamond hands only. Launch memecoins with actual yield farming strategy. No rugpulls, no jeets, just pure based autism and big brain plays.
+            Diamond hands only. Borrow against your meme treasury, buy back your chart, activate the flywheel. No selling, just infinite buyback loops.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -53,20 +53,20 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <Card className="gradient-card border-primary/20 p-6 text-center hover:scale-105 transition-transform">
               <DollarSign className="h-8 w-8 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-primary">$51M+</div>
-              <div className="text-sm text-muted-foreground">Total Value Locked</div>
+              <div className="text-2xl font-bold text-primary">∞</div>
+              <div className="text-sm text-muted-foreground">Flywheel Loops</div>
             </Card>
             
             <Card className="gradient-card border-secondary/20 p-6 text-center hover:scale-105 transition-transform">
               <Zap className="h-8 w-8 text-secondary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-secondary">208</div>
-              <div className="text-sm text-muted-foreground">Active Pods</div>
+              <div className="text-2xl font-bold text-secondary">0%</div>
+              <div className="text-sm text-muted-foreground">Sell Pressure</div>
             </Card>
             
             <Card className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform">
               <TrendingUp className="h-8 w-8 text-accent mx-auto mb-2" />
-              <div className="text-2xl font-bold text-accent">$2.7M</div>
-              <div className="text-sm text-muted-foreground">Total Yield Generated</div>
+              <div className="text-2xl font-bold text-accent">💎🙌</div>
+              <div className="text-sm text-muted-foreground">Only Diamond Hands</div>
             </Card>
           </div>
         </div>

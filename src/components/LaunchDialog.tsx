@@ -135,10 +135,10 @@ const LaunchDialog = () => {
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Launch Your Based Memecoin
+            Launch Your Flywheel Token
           </DialogTitle>
           <DialogDescription>
-            Deploy yield-farming memes with $51M+ TVL backing. No rugs, just sustainable autism.
+            Deploy borrowing-enabled memecoins that buy back their own chart. No rugs, just infinite loops.
           </DialogDescription>
         </DialogHeader>
 
@@ -252,7 +252,7 @@ const LaunchDialog = () => {
                 <span className="text-sm font-semibold text-primary">{deploymentFee} ETH</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                Covers Base deployment + yield farming setup (worth it anon)
+                Covers Base deployment + flywheel setup (infinite money glitch activation fee)
               </p>
             </div>
           </Card>

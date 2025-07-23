@@ -7,7 +7,7 @@ const WalletFlowSection = () => {
     {
       icon: TrendingUp,
       name: "LP Wallet",
-      percentage: "75%",
+      percentage: "5%",
       description: "Liquidity provision & trading fees",
       color: "from-emerald-500 to-emerald-600"
     },
@@ -28,7 +28,7 @@ const WalletFlowSection = () => {
     {
       icon: RotateCcw,
       name: "Buyback Wallet",
-      percentage: "5%",
+      percentage: "75%",
       description: "Automated token buybacks",
       color: "from-orange-500 to-orange-600"
     }

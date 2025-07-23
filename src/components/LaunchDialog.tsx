@@ -25,7 +25,6 @@ const LaunchDialog = () => {
     symbol: '',
     description: '',
     maxSupply: '1000000', // 1M tokens default
-    fundraisingTarget: '',
     creatorAllocation: '5',
   })
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -63,7 +62,7 @@ const LaunchDialog = () => {
     }
 
     // Basic validation
-    if (!formData.name || !formData.symbol || !formData.fundraisingTarget || !formData.maxSupply) {
+    if (!formData.name || !formData.symbol || !formData.maxSupply) {
       toast({
         title: "Missing Information",
         description: "Fill all fields or ngmi",
@@ -82,7 +81,6 @@ const LaunchDialog = () => {
         name: formData.name,
         symbol: formData.symbol,
         maxSupply: formData.maxSupply,
-        fundraisingTarget: formData.fundraisingTarget,
         creatorAllocation: formData.creatorAllocation,
         deploymentFee: deploymentFee
       })
@@ -110,7 +108,6 @@ const LaunchDialog = () => {
       symbol: '',
       description: '',
       maxSupply: '1000000',
-      fundraisingTarget: '',
       creatorAllocation: '5',
     })
     setSelectedFile(null)
@@ -215,22 +212,7 @@ const LaunchDialog = () => {
           {/* Launch Parameters */}
           <Card className="p-6 gradient-card border-accent/20">
             <h3 className="text-lg font-semibold mb-4 text-card-foreground">Launch Parameters</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="fundraisingTarget" className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4" />
-                  Fundraising Target (ETH) *
-                </Label>
-                <Input
-                  id="fundraisingTarget"
-                  name="fundraisingTarget"
-                  type="number"
-                  step="0.1"
-                  placeholder="10.0"
-                  value={formData.fundraisingTarget}
-                  onChange={handleInputChange}
-                />
-              </div>
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <Label htmlFor="creatorAllocation">Creator Allocation (%)</Label>
                 <Input
@@ -243,18 +225,21 @@ const LaunchDialog = () => {
                   value={formData.creatorAllocation}
                   onChange={handleInputChange}
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Percentage of tokens allocated to creator (max 20%)
+                </p>
               </div>
-            </div>
-            
-            {/* Deployment Fee Info */}
-            <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Deployment Fee:</span>
-                <span className="text-sm font-semibold text-primary">{deploymentFee} ETH</span>
+              
+              {/* Fixed Target Info */}
+              <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Fixed Fundraising Target:</span>
+                  <span className="text-sm font-semibold text-primary">0.001 ETH</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  All tokens have the same fundraising target for testing purposes
+                </p>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Covers Base deployment + single-sided LP setup (infinite liquidity machine activation fee)
-              </p>
             </div>
           </Card>
 
@@ -270,7 +255,7 @@ const LaunchDialog = () => {
             {isDeploying 
               ? 'Deploying to Base...' 
               : (ready && authenticated)
-                ? `Deploy Token (${deploymentFee} ETH)` 
+                ? 'Deploy Token (Free)' 
                 : 'Connect Wallet First'
             }
           </Button>

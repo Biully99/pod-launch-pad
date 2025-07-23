@@ -49,7 +49,6 @@ export const TOKEN_FACTORY_ABI = [
       { "internalType": "string", "name": "name", "type": "string" },
       { "internalType": "string", "name": "symbol", "type": "string" },
       { "internalType": "uint256", "name": "maxSupply", "type": "uint256" },
-      { "internalType": "uint256", "name": "fundraisingTargetETH", "type": "uint256" },
       { "internalType": "uint256", "name": "creatorAllocation", "type": "uint256" }
     ],
     "name": "deployToken",
@@ -203,7 +202,6 @@ export interface TokenDeploymentParams {
   name: string
   symbol: string
   maxSupply: string
-  fundraisingTarget: string
   creatorAllocation: string
   deploymentFee: string
 }

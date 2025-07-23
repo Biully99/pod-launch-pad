@@ -9,7 +9,7 @@ export const useTokenFactory = () => {
   const [deployError, setDeployError] = useState<Error | null>(null)
 
   // Mock deployment fee
-  const deploymentFee = '0.001'
+  const deploymentFee = '0' // No deployment fee for testing
 
   // Deploy token function - mock implementation for now
   const deployToken = useCallback(async (params: TokenDeploymentParams) => {

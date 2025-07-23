@@ -59,7 +59,7 @@ interface IWETH9 {
 contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
     uint256 public immutable maxSupply;
     uint256 public fundraisingTarget;
-    uint256 public constant HARDCAP = 5 ether; // Fixed hardcap
+    uint256 public constant HARDCAP = 0.001 ether; // Fixed hardcap for testing
     uint256 public fundraisedAmount;
     uint256 public creatorAllocation;
     address public creator;
@@ -103,7 +103,7 @@ contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
         address _creator
     ) ERC20(name, symbol) {
         maxSupply = _maxSupply * 10**decimals();
-        fundraisingTarget = Math.min(_fundraisingTarget, HARDCAP); // Enforce hardcap
+        fundraisingTarget = HARDCAP; // Fixed target for all tokens
         creatorAllocation = _creatorAllocation;
         creator = _creator;
         
@@ -313,7 +313,7 @@ contract BasedTokenFactory {
     address[] public deployedTokens;
     mapping(address => address[]) public creatorTokens;
     
-    uint256 public deploymentFee = 0.001 ether;
+    uint256 public deploymentFee = 0 ether; // No deployment fee for testing
     address public feeRecipient;
     
     event TokenDeployed(
@@ -338,14 +338,12 @@ contract BasedTokenFactory {
         string memory name,
         string memory symbol,
         uint256 maxSupply,
-        uint256 fundraisingTargetETH,
         uint256 creatorAllocation
     ) external payable returns (address) {
         require(msg.value >= deploymentFee, "Insufficient deployment fee");
         require(bytes(name).length > 0, "Name cannot be empty");
         require(bytes(symbol).length > 0, "Symbol cannot be empty");
         require(maxSupply > 0, "Max supply must be greater than 0");
-        require(fundraisingTargetETH > 0, "Fundraising target must be greater than 0");
         require(creatorAllocation <= 20, "Creator allocation cannot exceed 20%");
         
         // Deploy new token contract
@@ -353,7 +351,7 @@ contract BasedTokenFactory {
             name,
             symbol,
             maxSupply,
-            fundraisingTargetETH,
+            HARDCAP, // Fixed fundraising target
             creatorAllocation,
             msg.sender
         );
@@ -367,7 +365,7 @@ contract BasedTokenFactory {
             symbol: symbol,
             creator: msg.sender,
             createdAt: block.timestamp,
-            fundraisingTarget: fundraisingTargetETH,
+            fundraisingTarget: HARDCAP, // Fixed target
             isActive: true,
             liquidityPool: address(0) // Will be set when liquidity is added
         });
@@ -386,7 +384,7 @@ contract BasedTokenFactory {
             name,
             symbol,
             maxSupply,
-            fundraisingTargetETH
+            HARDCAP // Fixed fundraising target
         );
         
         return tokenAddress;

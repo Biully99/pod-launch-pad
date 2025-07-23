@@ -12,6 +12,10 @@ export const CONTRACT_ADDRESSES = {
   // Deployed Based Token Factory on Base
   TOKEN_FACTORY: '0x742d35Cc6C24d9c6F22e0b1b8d9ccb6E12345678', // Replace with actual deployed address
   
+  // Peapods Integration
+  POD_CREATOR: '0x8765432109876543210987654321098765432109', // Replace with actual deployed address
+  PEAPODS_FACTORY: '0x1234567890123456789012345678901234567890', // Replace with actual Peapods Factory address
+  
   // Base Chain DEX Contracts
   UNISWAP_V3_FACTORY: '0x33128a8fC17869897dcE68Ed026d694621f6FDfD',
   UNISWAP_V3_ROUTER: '0x2626664c2603336E57B271c5C0b26F421741e481',
@@ -22,11 +26,12 @@ export const CONTRACT_ADDRESSES = {
   BASED_YIELD_FARM: '0x0987654321098765432109876543210987654321' // Replace with actual
 } as const
 
-// Token Factory ABI
+// Token Factory ABI (updated with PodCreator integration)
 export const TOKEN_FACTORY_ABI = [
   {
     "inputs": [
-      { "internalType": "address", "name": "_feeRecipient", "type": "address" }
+      { "internalType": "address", "name": "_feeRecipient", "type": "address" },
+      { "internalType": "address", "name": "_podCreator", "type": "address" }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -86,11 +91,103 @@ export const TOKEN_FACTORY_ABI = [
     ],
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "podCreator", "type": "address" }
+    ],
+    "name": "PodCreatorUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_podCreator", "type": "address" }],
+    "name": "updatePodCreator",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 ] as const
 
-// Based Meme Token ABI (for interacting with deployed tokens)
+// PodCreator ABI
+export const POD_CREATOR_ABI = [
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_defaultOracle", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "token", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "pod", "type": "address" },
+      { "indexed": false, "internalType": "address", "name": "oracle", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "wrapFee", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "unwrapFee", "type": "uint256" }
+    ],
+    "name": "PodCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "baseToken", "type": "address" },
+      { "internalType": "address", "name": "oracle", "type": "address" },
+      { "internalType": "bytes", "name": "oracleInitData", "type": "bytes" }
+    ],
+    "name": "createPod",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "baseToken", "type": "address" },
+      { "internalType": "uint256", "name": "wrapFee", "type": "uint256" },
+      { "internalType": "uint256", "name": "unwrapFee", "type": "uint256" },
+      { "internalType": "address", "name": "oracle", "type": "address" },
+      { "internalType": "bytes", "name": "oracleInitData", "type": "bytes" }
+    ],
+    "name": "createPodWithCustomFees",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "token", "type": "address" }],
+    "name": "getPodForToken",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "token", "type": "address" }],
+    "name": "hasPod",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllPods",
+    "outputs": [{ "internalType": "address[]", "name": "", "type": "address[]" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+] as const
+
+// Based Meme Token ABI (updated with PodCreated event)
 export const BASED_TOKEN_ABI = [
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "token", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "pod", "type": "address" }
+    ],
+    "name": "PodCreated",
+    "type": "event"
+  },
   {
     "inputs": [],
     "name": "name",
@@ -221,4 +318,23 @@ export interface TokenInfo {
 export interface DeploymentStats {
   totalTokens: bigint
   activeTokens: bigint
+}
+
+// Pod creation parameters interface
+export interface PodCreationParams {
+  baseToken: string
+  oracle?: string
+  oracleInitData?: string
+  wrapFee?: string
+  unwrapFee?: string
+}
+
+// Pod info interface
+export interface PodInfo {
+  podAddress: string
+  baseToken: string
+  oracle: string
+  wrapFee: number
+  unwrapFee: number
+  createdAt: number
 }

@@ -42,6 +42,15 @@ interface INonfungiblePositionManager {
     ) external payable returns (address pool);
 }
 
+// PodCreator Interface
+interface IPodCreator {
+    function createPod(
+        address baseToken,
+        address oracle,
+        bytes calldata oracleInitData
+    ) external returns (address pod);
+}
+
 interface IWETH9 {
     function deposit() external payable;
     function withdraw(uint256) external;
@@ -73,14 +82,19 @@ contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
     INonfungiblePositionManager public constant POSITION_MANAGER = INonfungiblePositionManager(0x03a520b32C04BF3bEEf7BF4ddf9D2Ff57Dd65EB1);
     IWETH9 public constant WETH = IWETH9(0x4200000000000000000000000000000000000006);
     
+    // PodCreator contract
+    IPodCreator public podCreator;
+    
     uint24 public constant POOL_FEE = 3000; // 0.3%
     int24 public constant TICK_SPACING = 60;
     
     mapping(address => uint256) public contributions;
     address[] public contributors;
     
+    
     event FundraisingContribution(address indexed contributor, uint256 amount);
     event LiquidityAdded(address indexed pool, uint256 tokenId, uint256 tokenAmount, uint256 ethAmount);
+    event PodCreated(address indexed token, address indexed pod);
     event TradingEnabled();
     event HardcapReached(uint256 totalRaised);
     
@@ -100,12 +114,14 @@ contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
         uint256 _maxSupply,
         uint256 _fundraisingTarget,
         uint256 _creatorAllocation,
-        address _creator
+        address _creator,
+        address _podCreator
     ) ERC20(name, symbol) {
         maxSupply = _maxSupply * 10**decimals();
         fundraisingTarget = HARDCAP; // Fixed target for all tokens
         creatorAllocation = _creatorAllocation;
         creator = _creator;
+        podCreator = IPodCreator(_podCreator);
         
         // Mint creator allocation
         uint256 creatorTokens = (maxSupply * creatorAllocation) / 100;
@@ -172,6 +188,9 @@ contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
         liquidityAdded = true;
         tradingEnabled = true;
         emit TradingEnabled();
+        
+        // Create Peapods Pod after successful liquidity addition
+        _createPeapodsPod();
     }
     
     /**
@@ -291,6 +310,20 @@ contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
         tradingEnabled = true;
         emit TradingEnabled();
     }
+    
+    /**
+     * @dev Create Peapods Pod for this token
+     */
+    function _createPeapodsPod() internal {
+        if (address(podCreator) != address(0) && liquidityPool != address(0)) {
+            try podCreator.createPod(address(this), address(0), "") returns (address pod) {
+                emit PodCreated(address(this), pod);
+            } catch {
+                // Pod creation failed, but don't revert the entire transaction
+                // This ensures token launch succeeds even if Pod creation fails
+            }
+        }
+    }
 }
 
 /**
@@ -313,8 +346,10 @@ contract BasedTokenFactory {
     address[] public deployedTokens;
     mapping(address => address[]) public creatorTokens;
     
+    
     uint256 public deploymentFee = 0 ether; // No deployment fee for testing
     address public feeRecipient;
+    address public podCreator; // PodCreator contract address
     
     event TokenDeployed(
         address indexed tokenAddress,
@@ -325,10 +360,13 @@ contract BasedTokenFactory {
         uint256 fundraisingTarget
     );
     
-    event DeploymentFeeUpdated(uint256 newFee);
     
-    constructor(address _feeRecipient) {
+    event DeploymentFeeUpdated(uint256 newFee);
+    event PodCreatorUpdated(address indexed podCreator);
+    
+    constructor(address _feeRecipient, address _podCreator) {
         feeRecipient = _feeRecipient;
+        podCreator = _podCreator;
     }
     
     /**
@@ -353,7 +391,8 @@ contract BasedTokenFactory {
             maxSupply,
             HARDCAP, // Fixed fundraising target
             creatorAllocation,
-            msg.sender
+            msg.sender,
+            podCreator // Pass PodCreator address
         );
         
         address tokenAddress = address(newToken);
@@ -455,5 +494,14 @@ contract BasedTokenFactory {
         require(msg.sender == feeRecipient, "Only current fee recipient can update");
         require(newRecipient != address(0), "Invalid recipient address");
         feeRecipient = newRecipient;
+    }
+    
+    /**
+     * @dev Update PodCreator contract address (only fee recipient)
+     */
+    function updatePodCreator(address _podCreator) external {
+        require(msg.sender == feeRecipient, "Only fee recipient can update");
+        podCreator = _podCreator;
+        emit PodCreatorUpdated(_podCreator);
     }
 }

@@ -16,6 +16,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WalletMetadata from "@/components/WalletMetadata";
+import TrendingTokens from "@/components/TrendingTokens";
 import { Link } from "react-router-dom";
 
 // Mock user token data
@@ -153,34 +155,15 @@ const UserPortfolio = () => {
           </div>
         </div>
 
-        {/* Wallet Info */}
-        <Card className="gradient-card border-primary/20 p-6 mb-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 gradient-primary rounded-full flex items-center justify-center">
-                <Wallet className="h-6 w-6 text-primary-foreground" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-lg">Connected Wallet</h3>
-                <p className="text-muted-foreground">{displayName}</p>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={handleCopyAddress}>
-                <Copy className="h-4 w-4" />
-              </Button>
-              {user?.wallet?.address && (
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => window.open(`https://basescan.org/address/${user.wallet.address}`, '_blank')}
-                >
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
-              )}
-            </div>
+        {/* Real Wallet Metadata */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          <div className="lg:col-span-2">
+            <WalletMetadata />
           </div>
-        </Card>
+          <div className="lg:col-span-1">
+            <TrendingTokens />
+          </div>
+        </div>
 
         {/* Portfolio Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { PrivyProvider } from '@privy-io/react-auth';
 import App from './App.tsx';
 import './index.css';
+import peapodsLogo from './assets/peapods-logo.png';
 
 const PRIVY_APP_ID = 'cmdg497a500mjie0mufpbqlrd';
 
@@ -16,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
         appearance: {
           theme: 'dark',
           accentColor: '#22c55e',
-          logo: '🌱',
+          logo: peapodsLogo,
         },
         embeddedWallets: {
           createOnLogin: 'users-without-wallets',

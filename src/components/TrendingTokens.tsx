@@ -61,7 +61,7 @@ const TrendingTokens = () => {
     });
   };
   return (
-    <section className="py-20 relative">
+    <section id="trending" className="py-20 relative">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -133,8 +133,8 @@ const TrendingTokens = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
-            View All Tokens
+          <Button variant="outline" size="lg" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            Launch Your Token
           </Button>
         </div>
       </div>

@@ -6,10 +6,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /**
- * @title PeapodsMemeToken
- * @dev ERC20 token with Peapods integration features
+ * @title BasedMemeToken
+ * @dev ERC20 token with based memecoin features
  */
-contract PeapodsMemeToken is ERC20, Ownable, ReentrancyGuard {
+contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
     uint256 public immutable maxSupply;
     uint256 public fundraisingTarget;
     uint256 public fundraisedAmount;
@@ -151,10 +151,10 @@ contract PeapodsMemeToken is ERC20, Ownable, ReentrancyGuard {
 }
 
 /**
- * @title PeapodsTokenFactory
- * @dev Factory contract for deploying Peapods meme tokens
+ * @title BasedTokenFactory
+ * @dev Factory contract for deploying based meme tokens
  */
-contract PeapodsTokenFactory is ReentrancyGuard {
+contract BasedTokenFactory is ReentrancyGuard {
     struct TokenInfo {
         address tokenAddress;
         string name;
@@ -188,7 +188,7 @@ contract PeapodsTokenFactory is ReentrancyGuard {
     }
     
     /**
-     * @dev Deploy a new Peapods meme token
+     * @dev Deploy a new based meme token
      */
     function deployToken(
         string memory name,
@@ -205,7 +205,7 @@ contract PeapodsTokenFactory is ReentrancyGuard {
         require(creatorAllocation <= 20, "Creator allocation cannot exceed 20%");
         
         // Deploy new token contract
-        PeapodsMemeToken newToken = new PeapodsMemeToken(
+        BasedMemeToken newToken = new BasedMemeToken(
             name,
             symbol,
             maxSupply,

@@ -11,7 +11,7 @@ export const BASE_CHAIN_CONFIG = {
 
 // Contract Addresses on Base Chain
 export const CONTRACT_ADDRESSES = {
-  // Deployed Peapods Token Factory on Base
+  // Deployed Based Token Factory on Base
   TOKEN_FACTORY: '0x742d35Cc6C24d9c6F22e0b1b8d9ccb6E12345678', // Replace with actual deployed address
   
   // Base Chain DEX Contracts
@@ -19,9 +19,9 @@ export const CONTRACT_ADDRESSES = {
   UNISWAP_V3_ROUTER: '0x2626664c2603336E57B271c5C0b26F421741e481',
   UNISWAP_V3_POSITION_MANAGER: '0x03a520b32C04BF3bEEf7BF4ddf9D2Ff57Dd65EB1',
   
-  // Peapods Protocol Contracts (would be deployed separately)
-  PEAPODS_LVF_MANAGER: '0x1234567890123456789012345678901234567890', // Replace with actual
-  PEAPODS_YIELD_FARM: '0x0987654321098765432109876543210987654321' // Replace with actual
+  // Based Protocol Contracts (would be deployed separately)
+  BASED_LVF_MANAGER: '0x1234567890123456789012345678901234567890', // Replace with actual
+  BASED_YIELD_FARM: '0x0987654321098765432109876543210987654321' // Replace with actual
 } as const
 
 // Token Factory ABI
@@ -92,8 +92,8 @@ export const TOKEN_FACTORY_ABI = [
   }
 ] as const
 
-// Peapods Meme Token ABI (for interacting with deployed tokens)
-export const PEAPODS_TOKEN_ABI = [
+// Based Meme Token ABI (for interacting with deployed tokens)
+export const BASED_TOKEN_ABI = [
   {
     "inputs": [],
     "name": "name",

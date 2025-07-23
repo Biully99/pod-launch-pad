@@ -36,8 +36,7 @@ const LaunchDialog = () => {
     isDeploying, 
     deploymentFee, 
     deployReceipt, 
-    deployError,
-    deploymentTxHash 
+    deployError
   } = useTokenFactory()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

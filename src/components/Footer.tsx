@@ -8,12 +8,12 @@ const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
-                <Zap className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                PeapodPump
-              </span>
+            <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
+              <Zap className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Peapods Meme Launchpad
+            </span>
             </div>
             <p className="text-muted-foreground mb-4">
               The ultimate permissionless meme token launchpad with Peapods integration.

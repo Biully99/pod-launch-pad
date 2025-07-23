@@ -100,10 +100,10 @@ const LaunchDialog = () => {
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Launch Your Meme Token
+            Launch Your Memecoin on Peapods
           </DialogTitle>
           <DialogDescription>
-            Create and deploy your meme token with automatic Uniswap V3 LP and Peapods integration
+            Create yield-generating memecoins with the institutional infrastructure trusted by $51M+ TVL
           </DialogDescription>
         </DialogHeader>
 

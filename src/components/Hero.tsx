@@ -32,21 +32,20 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent leading-tight">
-            Launch Memes,
+            The MicroStrategy
             <br />
-            Create Legends
+            of Memecoins
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            The ultimate permissionless launchpad. Create tokens instantly, build communities, 
-            and ride the wave to the moon with Peapods integration.
+            Launch your memecoin with Peapods Finance - the institutional-grade platform that turns viral moments into unstoppable assets. Built for diamond hands who think beyond the meme.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <LaunchDialog />
             <Button variant="outline" size="xl">
               <TrendingUp className="h-5 w-5" />
-              Explore Trending
+              View Peapods Portfolio
             </Button>
           </div>
 
@@ -54,20 +53,20 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <Card className="gradient-card border-primary/20 p-6 text-center hover:scale-105 transition-transform">
               <DollarSign className="h-8 w-8 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-primary">$2.4M+</div>
-              <div className="text-sm text-muted-foreground">Total Volume</div>
+              <div className="text-2xl font-bold text-primary">$51M+</div>
+              <div className="text-sm text-muted-foreground">Total Value Locked</div>
             </Card>
             
             <Card className="gradient-card border-secondary/20 p-6 text-center hover:scale-105 transition-transform">
               <Zap className="h-8 w-8 text-secondary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-secondary">1,247</div>
-              <div className="text-sm text-muted-foreground">Tokens Launched</div>
+              <div className="text-2xl font-bold text-secondary">208</div>
+              <div className="text-sm text-muted-foreground">Active Pods</div>
             </Card>
             
             <Card className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform">
               <TrendingUp className="h-8 w-8 text-accent mx-auto mb-2" />
-              <div className="text-2xl font-bold text-accent">156%</div>
-              <div className="text-sm text-muted-foreground">Avg. ROI</div>
+              <div className="text-2xl font-bold text-accent">$2.7M</div>
+              <div className="text-sm text-muted-foreground">Total Yield Generated</div>
             </Card>
           </div>
         </div>

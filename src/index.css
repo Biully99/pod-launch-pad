@@ -2,66 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Meme Launchpad Design System - Vibrant DeFi Aesthetic */
+/* Peapods Finance Design System - Dark Green Professional */
 
 @layer base {
   :root {
     /* Core Background & Text */
-    --background: 235 15% 7%;
-    --foreground: 280 20% 95%;
+    --background: 140 25% 8%;
+    --foreground: 140 15% 95%;
 
     /* Card System */
-    --card: 235 15% 10%;
-    --card-foreground: 280 15% 92%;
+    --card: 140 30% 10%;
+    --card-foreground: 140 15% 95%;
 
     /* Popover */
-    --popover: 235 15% 8%;
-    --popover-foreground: 280 15% 95%;
+    --popover: 140 30% 10%;
+    --popover-foreground: 140 15% 95%;
 
-    /* Primary - Electric Purple/Pink */
-    --primary: 280 100% 70%;
-    --primary-foreground: 235 15% 7%;
-    --primary-glow: 280 100% 85%;
+    /* Primary - Peapods Green */
+    --primary: 120 100% 50%;
+    --primary-foreground: 140 25% 8%;
+    --primary-glow: 120 100% 60%;
 
-    /* Secondary - Neon Green */
-    --secondary: 142 100% 65%;
-    --secondary-foreground: 235 15% 7%;
-    --secondary-glow: 142 100% 80%;
+    /* Secondary - Darker Green */
+    --secondary: 140 60% 25%;
+    --secondary-foreground: 140 15% 95%;
+    --secondary-glow: 140 60% 35%;
 
     /* Muted */
-    --muted: 235 10% 15%;
-    --muted-foreground: 280 10% 70%;
+    --muted: 140 25% 12%;
+    --muted-foreground: 140 15% 65%;
 
-    /* Accent - Electric Blue */
-    --accent: 200 100% 70%;
-    --accent-foreground: 235 15% 7%;
-    --accent-glow: 200 100% 85%;
+    /* Accent - Bright Green */
+    --accent: 110 100% 55%;
+    --accent-foreground: 140 25% 8%;
+    --accent-glow: 110 100% 65%;
 
     /* Status Colors */
-    --success: 142 100% 65%;
-    --success-foreground: 235 15% 7%;
-    --warning: 45 100% 70%;
-    --warning-foreground: 235 15% 7%;
-    --destructive: 0 100% 70%;
-    --destructive-foreground: 235 15% 7%;
+    --success: 120 100% 35%;
+    --success-foreground: 140 15% 95%;
+    --warning: 45 93% 58%;
+    --warning-foreground: 140 25% 8%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 140 15% 95%;
 
     /* UI Elements */
-    --border: 235 15% 20%;
-    --input: 235 15% 12%;
-    --ring: 280 100% 70%;
+    --border: 140 20% 20%;
+    --input: 140 20% 18%;
+    --ring: 120 100% 50%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(280 100% 70%), hsl(320 100% 75%));
-    --gradient-secondary: linear-gradient(135deg, hsl(142 100% 65%), hsl(180 100% 70%));
-    --gradient-accent: linear-gradient(135deg, hsl(200 100% 70%), hsl(240 100% 75%));
-    --gradient-hero: linear-gradient(135deg, hsl(280 100% 70% / 0.2), hsl(200 100% 70% / 0.2));
-    --gradient-card: linear-gradient(145deg, hsl(235 15% 10% / 0.8), hsl(235 15% 12% / 0.9));
+    --gradient-primary: linear-gradient(135deg, hsl(120 100% 50%), hsl(110 100% 55%));
+    --gradient-secondary: linear-gradient(135deg, hsl(140 60% 25%), hsl(140 60% 35%));
+    --gradient-accent: linear-gradient(135deg, hsl(110 100% 55%), hsl(120 100% 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(120 100% 50% / 0.1), hsl(110 100% 55% / 0.1));
+    --gradient-card: linear-gradient(145deg, hsl(140 30% 10% / 0.8), hsl(140 25% 12% / 0.9));
 
     /* Shadows & Glows */
-    --shadow-glow: 0 0 30px hsl(280 100% 70% / 0.3);
-    --shadow-secondary: 0 0 25px hsl(142 100% 65% / 0.2);
-    --shadow-accent: 0 0 25px hsl(200 100% 70% / 0.2);
-    --shadow-card: 0 8px 32px hsl(235 15% 5% / 0.4);
+    --shadow-glow: 0 0 30px hsl(120 100% 50% / 0.3);
+    --shadow-secondary: 0 0 25px hsl(140 60% 25% / 0.2);
+    --shadow-accent: 0 0 25px hsl(110 100% 55% / 0.2);
+    --shadow-card: 0 8px 32px hsl(140 25% 5% / 0.4);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -132,9 +132,9 @@
 
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(circle at 20% 50%, hsl(280 100% 70% / 0.1) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, hsl(200 100% 70% / 0.1) 0%, transparent 50%),
-                      radial-gradient(circle at 40% 90%, hsl(142 100% 65% / 0.1) 0%, transparent 50%);
+    background-image: radial-gradient(circle at 20% 50%, hsl(120 100% 50% / 0.08) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, hsl(110 100% 55% / 0.08) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 90%, hsl(140 60% 25% / 0.08) 0%, transparent 50%);
   }
 }
 
@@ -182,10 +182,10 @@
 
 @keyframes pulse-glow {
   from {
-    box-shadow: 0 0 20px hsl(280 100% 70% / 0.2);
+    box-shadow: 0 0 20px hsl(120 100% 50% / 0.2);
   }
   to {
-    box-shadow: 0 0 40px hsl(280 100% 70% / 0.6);
+    box-shadow: 0 0 40px hsl(120 100% 50% / 0.6);
   }
 }
 

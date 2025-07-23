@@ -5,44 +5,44 @@ import LaunchDialog from "@/components/LaunchDialog";
 const features = [
   {
     icon: Rocket,
-    title: "Instant Launch",
-    description: "Deploy your meme token in seconds with our streamlined process",
+    title: "Volatility Farming Ready",
+    description: "Launch memecoins designed for Peapods' proven volatility farming strategies and yield generation",
     color: "text-primary",
     glow: "glow-primary",
   },
   {
     icon: Shield,
-    title: "Secure LP Lock",
-    description: "Automatic liquidity locking via Peapods for maximum security",
+    title: "Institutional Security",
+    description: "Battle-tested infrastructure managing $51M+ TVL with audited smart contracts and risk management",
     color: "text-secondary",
     glow: "glow-secondary",
   },
   {
     icon: Zap,
-    title: "Uniswap V3 LP",
-    description: "Automatic LP creation on Uniswap V3 with optimal range",
+    title: "MicroStrategy Philosophy",
+    description: "Think beyond quick pumps - build lasting value with institutional-grade tokenomics and strategy",
     color: "text-accent",
     glow: "glow-accent",
   },
   {
     icon: TrendingUp,
-    title: "Fair Launch",
-    description: "Permissionless and fair launch mechanism for everyone",
-    color: "text-warning",
+    title: "Peapods Ecosystem",
+    description: "Tap into the existing Peapods community of sophisticated DeFi users and yield farmers",
+    color: "text-primary",
     glow: "glow-primary",
   },
   {
     icon: Users,
-    title: "Community Driven",
-    description: "Built for meme communities with social features",
-    color: "text-success",
+    title: "Yield-First Design",
+    description: "Memecoins that generate real yield through integration with Peapods' LVF (Leveraged Volatility Farming)",
+    color: "text-secondary",
     glow: "glow-secondary",
   },
   {
     icon: Lock,
-    title: "Pod Integration",
-    description: "Leverage Peapods Finance for advanced DeFi features",
-    color: "text-primary",
+    title: "Cross-Pod Synergy",
+    description: "Integrate with existing Peapods pods and leverage multi-asset strategies for sustained growth",
+    color: "text-accent",
     glow: "glow-accent",
   },
 ];
@@ -53,11 +53,11 @@ const LaunchSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-            Launch Your Meme Token
+            Why Peapods for Memecoins?
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
-            The most advanced meme token launchpad with built-in Peapods integration. 
-            No coding required, just pure meme magic.
+            Leverage Peapods' proven DeFi infrastructure and volatility farming expertise to launch memecoins that last. 
+            The institutional way to turn memes into sustainable assets.
           </p>
           <div className="mb-12">
             <LaunchDialog />
@@ -80,14 +80,14 @@ const LaunchSection = () => {
         {/* Launch Process */}
         <div className="max-w-4xl mx-auto">
           <h3 className="text-2xl font-bold text-center mb-8 text-card-foreground">
-            How It Works
+            The Peapods Advantage
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { step: "1", title: "Create Token", desc: "Name, symbol & image" },
-              { step: "2", title: "Set Parameters", desc: "Cap, allocation & timing" },
-              { step: "3", title: "Deploy Contracts", desc: "One-click deployment" },
-              { step: "4", title: "Auto LP & Pod", desc: "Uniswap V3 + Peapods" },
+              { step: "1", title: "Design Yield Strategy", desc: "Create volatility farming mechanisms" },
+              { step: "2", title: "Deploy on Peapods", desc: "Leverage $51M+ TVL infrastructure" },
+              { step: "3", title: "Create LVF Pod", desc: "Turn volatility into yield" },
+              { step: "4", title: "Scale Institutionally", desc: "Build MicroStrategy-level conviction" },
             ].map((item, index) => (
               <Card key={index} className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform">
                 <div className="w-8 h-8 gradient-accent rounded-full flex items-center justify-center mx-auto mb-3 text-accent-foreground font-bold">

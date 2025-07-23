@@ -1,5 +1,3 @@
-import { base } from 'wagmi/chains'
-
 // Base Chain Network Configuration
 export const BASE_CHAIN_CONFIG = {
   chainId: 8453,

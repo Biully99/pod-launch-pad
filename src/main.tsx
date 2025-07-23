@@ -6,6 +6,8 @@ import './index.css';
 
 const PRIVY_APP_ID = 'cmdg497a500mjie0mufpbqlrd';
 
+console.log('🌱 Privy setup starting...', { PRIVY_APP_ID });
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <PrivyProvider

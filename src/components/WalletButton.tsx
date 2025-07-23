@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const WalletButton = () => {
+  console.log('🔗 WalletButton rendering...')
   const { ready, authenticated, user, login, logout } = usePrivy();
   const { toast } = useToast();
 

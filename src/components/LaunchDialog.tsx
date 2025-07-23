@@ -19,6 +19,7 @@ import { useTokenFactory } from '@/hooks/useTokenFactory'
 import { getExplorerUrl } from '@/lib/contracts'
 
 const LaunchDialog = () => {
+  console.log('🚀 LaunchDialog rendering...')
   const [formData, setFormData] = useState({
     name: '',
     symbol: '',

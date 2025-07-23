@@ -31,42 +31,42 @@ const Hero = () => {
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent leading-tight">
-            Single-Sided LP 
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent leading-tight animate-fade-in">
+            Based Memecoin 
             <br />
-            Flywheel
+            <span className="text-4xl md:text-6xl">MicroStrategy</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Deposit only your token → Get LP positions → Borrow against LP → Buy back chart → Repeat. No impermanent loss, infinite gains.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            🚀 Launch tokens that buy back their own chart. Diamond hands only. No jeets allowed. Pure number go up technology.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             <LaunchDialog />
-            <Button variant="outline" size="xl" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+            <Button variant="outline" size="xl" className="hover-scale" onClick={() => document.getElementById('flywheel')?.scrollIntoView({ behavior: 'smooth' })}>
               <TrendingUp className="h-5 w-5" />
-              How It Works
+              Learn The Flywheel
             </Button>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            <Card className="gradient-card border-primary/20 p-6 text-center hover:scale-105 transition-transform">
-              <DollarSign className="h-8 w-8 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-primary">🔄</div>
-              <div className="text-sm text-muted-foreground">LP Loops</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: "0.6s" }}>
+            <Card className="gradient-card border-primary/20 p-6 text-center hover-scale transition-all duration-300 group">
+              <DollarSign className="h-8 w-8 text-primary mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <div className="text-2xl font-bold text-primary">∞</div>
+              <div className="text-sm text-muted-foreground">Buyback Loops</div>
             </Card>
             
-            <Card className="gradient-card border-secondary/20 p-6 text-center hover:scale-105 transition-transform">
-              <Zap className="h-8 w-8 text-secondary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-secondary">0%</div>
-              <div className="text-sm text-muted-foreground">Impermanent Loss</div>
+            <Card className="gradient-card border-secondary/20 p-6 text-center hover-scale transition-all duration-300 group">
+              <Zap className="h-8 w-8 text-secondary mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <div className="text-2xl font-bold text-secondary">📈</div>
+              <div className="text-sm text-muted-foreground">Only Number Go Up</div>
             </Card>
             
-            <Card className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform">
-              <TrendingUp className="h-8 w-8 text-accent mx-auto mb-2" />
-              <div className="text-2xl font-bold text-accent">🏦</div>
-              <div className="text-sm text-muted-foreground">Borrow Capacity</div>
+            <Card className="gradient-card border-accent/20 p-6 text-center hover-scale transition-all duration-300 group">
+              <TrendingUp className="h-8 w-8 text-accent mx-auto mb-2 group-hover:scale-110 transition-transform" />
+              <div className="text-2xl font-bold text-accent">💎</div>
+              <div className="text-sm text-muted-foreground">Diamond Hands Tech</div>
             </Card>
           </div>
         </div>

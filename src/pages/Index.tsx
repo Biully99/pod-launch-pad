@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import TrendingTokens from "@/components/TrendingTokens";
+import FlywheelSection from "@/components/FlywheelSection";
 import LaunchSection from "@/components/LaunchSection";
+import TrendingTokens from "@/components/TrendingTokens";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -9,6 +10,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
+      <FlywheelSection />
       <LaunchSection />
       <TrendingTokens />
       <Footer />

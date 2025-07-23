@@ -24,68 +24,96 @@ const FlywheelSection = () => {
           <div className="relative">
             {/* Central Circle */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-32 h-32 gradient-primary rounded-full flex items-center justify-center animate-pulse">
+              <div className="w-32 h-32 gradient-primary rounded-full flex items-center justify-center animate-pulse border-4 border-primary/30">
                 <RefreshCw className="h-16 w-16 text-primary-foreground animate-spin" style={{ animationDuration: "3s" }} />
               </div>
             </div>
 
-            {/* Flywheel Steps */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 relative">
+            {/* Wheel Container */}
+            <div className="relative w-96 h-96 mx-auto">
               {[
                 { 
                   icon: Coins, 
                   title: "Deposit Tokens", 
                   desc: "Single-sided deposit", 
-                  position: "top-left",
-                  color: "primary"
+                  color: "primary",
+                  angle: 0 // 12 o'clock
                 },
                 { 
                   icon: TrendingUp, 
                   title: "Get LP Position", 
                   desc: "Automatic LP creation", 
-                  position: "top-right",
-                  color: "secondary"
+                  color: "secondary",
+                  angle: 90 // 3 o'clock
                 },
                 { 
                   icon: CreditCard, 
                   title: "Borrow USDC/WETH", 
                   desc: "Use LP as collateral", 
-                  position: "bottom-right",
-                  color: "accent"
+                  color: "accent",
+                  angle: 180 // 6 o'clock
                 },
                 { 
                   icon: ShoppingCart, 
                   title: "Buy Back Tokens", 
                   desc: "Market buy your chart", 
-                  position: "bottom-left",
-                  color: "primary"
+                  color: "primary",
+                  angle: 270 // 9 o'clock
                 }
-              ].map((step, index) => (
-                <div key={index} className="relative">
-                  <Card className={`gradient-card border-${step.color}/20 p-6 text-center hover-scale transition-all duration-300 group`}>
-                    <div className={`w-16 h-16 gradient-${step.color} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
-                      <step.icon className={`h-8 w-8 text-${step.color}-foreground`} />
-                    </div>
-                    <h3 className="font-bold text-lg mb-2">{step.title}</h3>
-                    <p className="text-sm text-muted-foreground">{step.desc}</p>
-                    <div className={`text-2xl font-bold text-${step.color} mt-2`}>
-                      {index + 1}
-                    </div>
-                  </Card>
-                  
-                  {/* Arrows */}
-                  {index < 3 && (
-                    <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                      <ArrowRight className="h-6 w-6 text-primary animate-pulse" />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+              ].map((step, index) => {
+                const radius = 140;
+                const angleInRadians = (step.angle * Math.PI) / 180;
+                const x = radius * Math.cos(angleInRadians - Math.PI / 2);
+                const y = radius * Math.sin(angleInRadians - Math.PI / 2);
+                
+                return (
+                  <div 
+                    key={index} 
+                    className="absolute"
+                    style={{
+                      left: `calc(50% + ${x}px)`,
+                      top: `calc(50% + ${y}px)`,
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                  >
+                    <Card className={`gradient-card border-${step.color}/20 p-4 text-center hover-scale transition-all duration-300 group w-32`}>
+                      <div className={`w-12 h-12 gradient-${step.color} rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform`}>
+                        <step.icon className={`h-6 w-6 text-${step.color}-foreground`} />
+                      </div>
+                      <h3 className="font-bold text-sm mb-1">{step.title}</h3>
+                      <p className="text-xs text-muted-foreground">{step.desc}</p>
+                      <div className={`text-lg font-bold text-${step.color} mt-1`}>
+                        {index + 1}
+                      </div>
+                    </Card>
+                  </div>
+                );
+              })}
 
-            {/* Mobile Arrows */}
-            <div className="md:hidden flex justify-center mt-4">
-              <ArrowDown className="h-6 w-6 text-primary animate-bounce" />
+              {/* Connecting Arrows in Circle */}
+              {[0, 1, 2, 3].map((index) => {
+                const currentAngle = index * 90;
+                const nextAngle = ((index + 1) % 4) * 90;
+                const midAngle = currentAngle + 45;
+                const radius = 120;
+                const angleInRadians = (midAngle * Math.PI) / 180;
+                const x = radius * Math.cos(angleInRadians - Math.PI / 2);
+                const y = radius * Math.sin(angleInRadians - Math.PI / 2);
+                
+                return (
+                  <div 
+                    key={`arrow-${index}`}
+                    className="absolute"
+                    style={{
+                      left: `calc(50% + ${x}px)`,
+                      top: `calc(50% + ${y}px)`,
+                      transform: `translate(-50%, -50%) rotate(${midAngle + 90}deg)`
+                    }}
+                  >
+                    <ArrowRight className="h-6 w-6 text-primary animate-pulse" />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

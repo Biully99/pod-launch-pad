@@ -59,7 +59,7 @@ interface IWETH9 {
 contract BasedMemeToken is ERC20, Ownable, ReentrancyGuard {
     uint256 public immutable maxSupply;
     uint256 public fundraisingTarget;
-    uint256 public constant HARDCAP = 100 ether; // Fixed hardcap
+    uint256 public constant HARDCAP = 5 ether; // Fixed hardcap
     uint256 public fundraisedAmount;
     uint256 public creatorAllocation;
     address public creator;

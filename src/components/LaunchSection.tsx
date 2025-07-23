@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Rocket, Shield, Zap, TrendingUp, Users, Lock } from "lucide-react";
+import LaunchDialog from "@/components/LaunchDialog";
 
 const features = [
   {
@@ -59,10 +59,9 @@ const LaunchSection = () => {
             The most advanced meme token launchpad with built-in Peapods integration. 
             No coding required, just pure meme magic.
           </p>
-          <Button variant="hero" size="xl" className="mb-12">
-            <Rocket className="h-5 w-5" />
-            Start Launch Process
-          </Button>
+          <div className="mb-12">
+            <LaunchDialog />
+          </div>
         </div>
 
         {/* Features Grid */}

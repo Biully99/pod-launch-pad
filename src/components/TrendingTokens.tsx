@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, TrendingDown, Users, DollarSign } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const mockTokens = [
   {
@@ -51,6 +52,14 @@ const mockTokens = [
 ];
 
 const TrendingTokens = () => {
+  const { toast } = useToast();
+
+  const handleTrade = (tokenName: string) => {
+    toast({
+      title: `Trading ${tokenName}`,
+      description: "Connect Supabase for full trading functionality",
+    });
+  };
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-4">
@@ -115,6 +124,7 @@ const TrendingTokens = () => {
                 variant={index === 0 ? "default" : index === 1 ? "secondary" : "outline"} 
                 size="sm" 
                 className="w-full group-hover:scale-105 transition-transform"
+                onClick={() => handleTrade(token.name)}
               >
                 Trade Now
               </Button>

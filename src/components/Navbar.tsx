@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Wallet, Zap, TrendingUp } from "lucide-react";
+import { Zap, TrendingUp } from "lucide-react";
+import WalletButton from "@/components/WalletButton";
 
 const Navbar = () => {
   return (
@@ -31,10 +32,7 @@ const Navbar = () => {
             <TrendingUp className="h-4 w-4" />
             Analytics
           </Button>
-          <Button variant="hero" size="sm">
-            <Wallet className="h-4 w-4" />
-            Connect Wallet
-          </Button>
+          <WalletButton />
         </div>
       </div>
     </nav>

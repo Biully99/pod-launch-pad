@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Rocket, Zap, TrendingUp, DollarSign } from "lucide-react";
+import { TrendingUp, DollarSign, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import LaunchDialog from "@/components/LaunchDialog";
 
 const Hero = () => {
   return (
@@ -42,10 +43,7 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button variant="hero" size="xl" className="group">
-              <Rocket className="h-5 w-5 group-hover:rotate-12 transition-transform" />
-              Launch Your Token
-            </Button>
+            <LaunchDialog />
             <Button variant="outline" size="xl">
               <TrendingUp className="h-5 w-5" />
               Explore Trending

@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Wallet, LogOut, User, ChevronDown, Copy, ExternalLink } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
+import { useState, useEffect } from 'react';
+import { getEthBalance } from '@/lib/blockchain';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +17,23 @@ const WalletButton = () => {
   console.log('🔗 WalletButton rendering...')
   const { ready, authenticated, user, login, logout } = usePrivy();
   const { toast } = useToast();
+  const [ethBalance, setEthBalance] = useState<string>('0');
+
+  // Fetch ETH balance when wallet is connected
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (authenticated && user?.wallet?.address) {
+        try {
+          const balance = await getEthBalance(user.wallet.address);
+          setEthBalance(balance);
+        } catch (error) {
+          console.error('Failed to fetch balance:', error);
+        }
+      }
+    };
+
+    fetchBalance();
+  }, [authenticated, user?.wallet?.address]);
 
   const formatAddress = (addr: string) => {
     return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
@@ -72,6 +91,7 @@ const WalletButton = () => {
         <Button variant="default" className="gap-2">
           <User className="h-4 w-4" />
           <span className="hidden sm:inline">{displayName}</span>
+          <span className="sm:hidden">{hasWallet ? `${parseFloat(ethBalance).toFixed(2)} ETH` : displayName}</span>
           {user?.email && (
             <Badge variant="secondary" className="ml-1 hidden md:inline-flex">
               📧
@@ -88,7 +108,14 @@ const WalletButton = () => {
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuItem disabled>
           <User className="h-4 w-4 mr-2" />
-          {displayName}
+          <div className="flex flex-col items-start">
+            <span>{displayName}</span>
+            {hasWallet && (
+              <span className="text-xs text-muted-foreground">
+                {parseFloat(ethBalance).toFixed(4)} ETH
+              </span>
+            )}
+          </div>
         </DropdownMenuItem>
         {hasWallet && (
           <>

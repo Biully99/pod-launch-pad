@@ -1,6 +1,7 @@
 import TokenDashboard from "@/components/TokenDashboard";
 import ContributionBox from "@/components/ContributionBox";
 import UserPortfolio from "@/components/UserPortfolio";
+import WalletMetadata from "@/components/WalletMetadata";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useParams } from "react-router-dom";
@@ -122,9 +123,10 @@ const Dashboard = () => {
             />
           </div>
           
-          {/* Right Column - Contribution Box */}
+          {/* Right Column - Wallet Info & Contribution */}
           <div className="lg:col-span-1">
-            <div className="sticky top-4">
+            <div className="sticky top-4 space-y-6">
+              <WalletMetadata />
               <ContributionBox 
                 tokenAddress={tokenAddress || ""}
                 tokenData={tokenData}

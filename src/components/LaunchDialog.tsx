@@ -56,7 +56,7 @@ const LaunchDialog = () => {
     if (!isConnected) {
       toast({
         title: "Wallet Not Connected",
-        description: "Please connect your wallet to Base network first",
+        description: "Connect your wallet to Base network first, anon",
         variant: "destructive"
       })
       return
@@ -66,7 +66,7 @@ const LaunchDialog = () => {
     if (!formData.name || !formData.symbol || !formData.fundraisingTarget || !formData.maxSupply) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields",
+        description: "Fill all fields or ngmi",
         variant: "destructive"
       })
       return
@@ -74,8 +74,8 @@ const LaunchDialog = () => {
 
     try {
       toast({
-        title: "Deploying Token 🚀",
-        description: "Your Peapods memecoin is being deployed to Base chain...",
+        title: "Deploying Based Token 🚀",
+        description: "Your memecoin is being deployed to Base chain...",
       })
 
       await deployToken({
@@ -89,8 +89,8 @@ const LaunchDialog = () => {
 
     } catch (error) {
       toast({
-        title: "Deployment Failed",
-        description: error instanceof Error ? error.message : "Failed to deploy token",
+        title: "Deployment Rekt",
+        description: error instanceof Error ? error.message : "Something went wrong, fren",
         variant: "destructive"
       })
     }
@@ -100,7 +100,7 @@ const LaunchDialog = () => {
   if (deployReceipt) {
     toast({
       title: "Token Deployed Successfully! 🎉",
-      description: `${formData.name} is now live on Base chain!`,
+      description: `${formData.name} is now live and ready to farm!`,
     })
     
     // Reset form and close dialog
@@ -136,10 +136,10 @@ const LaunchDialog = () => {
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Launch Your Memecoin on Peapods
+            Launch Your Based Memecoin
           </DialogTitle>
           <DialogDescription>
-            Create yield-generating memecoins with the institutional infrastructure trusted by $51M+ TVL
+            Deploy yield-farming memes with $51M+ TVL backing. No rugs, just sustainable autism.
           </DialogDescription>
         </DialogHeader>
 
@@ -253,7 +253,7 @@ const LaunchDialog = () => {
                 <span className="text-sm font-semibold text-primary">{deploymentFee} ETH</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                Covers Base chain deployment and Peapods integration setup
+                Covers Base deployment + yield farming setup (worth it anon)
               </p>
             </div>
           </Card>
@@ -271,15 +271,15 @@ const LaunchDialog = () => {
               ? 'Deploying to Base...' 
               : isConnected 
                 ? `Deploy Token (${deploymentFee} ETH)` 
-                : 'Connect Wallet to Launch'
+                : 'Connect Wallet First'
             }
           </Button>
 
           {/* Transaction Link */}
-          {deploymentTxHash && (
+          {deployReceipt && (
             <div className="text-center">
               <a 
-                href={getExplorerUrl(deploymentTxHash)} 
+                href={getExplorerUrl(deployReceipt.transactionHash)} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-glow transition-colors"

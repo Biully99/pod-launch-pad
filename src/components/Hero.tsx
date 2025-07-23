@@ -32,20 +32,20 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent leading-tight">
-            The MicroStrategy
+            Meme Market 
             <br />
-            of Memecoins
+            MicroStrategy
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Launch your memecoin with Peapods Finance - the institutional-grade platform that turns viral moments into unstoppable assets. Built for diamond hands who think beyond the meme.
+            Diamond hands only. Launch memecoins with actual yield farming strategy. No rugpulls, no jeets, just pure based autism and big brain plays.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <LaunchDialog />
             <Button variant="outline" size="xl">
               <TrendingUp className="h-5 w-5" />
-              View Peapods Portfolio
+              Check The Vault
             </Button>
           </div>
 

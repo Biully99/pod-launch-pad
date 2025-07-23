@@ -5,43 +5,43 @@ import LaunchDialog from "@/components/LaunchDialog";
 const features = [
   {
     icon: Rocket,
-    title: "Volatility Farming Ready",
-    description: "Launch memecoins designed for Peapods' proven volatility farming strategies and yield generation",
+    title: "Anon-Proof Yield Farming",
+    description: "Your memes generate actual yield through volatility farming. No more hoping for pumps, we farm the volatility itself",
     color: "text-primary",
     glow: "glow-primary",
   },
   {
     icon: Shield,
-    title: "Institutional Security",
-    description: "Battle-tested infrastructure managing $51M+ TVL with audited smart contracts and risk management",
+    title: "Rug-Proof Infrastructure", 
+    description: "Built on $51M+ TVL. Can't rug what's already battle-tested by actual degens with real money",
     color: "text-secondary",
     glow: "glow-secondary",
   },
   {
     icon: Zap,
-    title: "MicroStrategy Philosophy",
-    description: "Think beyond quick pumps - build lasting value with institutional-grade tokenomics and strategy",
+    title: "Big Brain Strategy",
+    description: "MicroStrategy for memes. Buy, hold, farm yield, repeat. Simple strategy, maximum autism execution",
     color: "text-accent",
     glow: "glow-accent",
   },
   {
     icon: TrendingUp,
-    title: "Peapods Ecosystem",
-    description: "Tap into the existing Peapods community of sophisticated DeFi users and yield farmers",
+    title: "Degen Community",
+    description: "Join the most based community of yield farmers and meme strategists. No normies allowed",
     color: "text-primary",
     glow: "glow-primary",
   },
   {
     icon: Users,
-    title: "Yield-First Design",
-    description: "Memecoins that generate real yield through integration with Peapods' LVF (Leveraged Volatility Farming)",
+    title: "Yield-First Memes",
+    description: "Memes that actually make money through LVF integration. Finally, autism that pays dividends",
     color: "text-secondary",
     glow: "glow-secondary",
   },
   {
     icon: Lock,
-    title: "Cross-Pod Synergy",
-    description: "Integrate with existing Peapods pods and leverage multi-asset strategies for sustained growth",
+    title: "Chad Pod Synergy",
+    description: "Stack multiple pods like a true sigma. Multi-asset strategies for maximum portfolio domination",
     color: "text-accent",
     glow: "glow-accent",
   },
@@ -53,41 +53,25 @@ const LaunchSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-            Why Peapods for Memecoins?
+            How It Works (For Smoothbrains)
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
-            Leverage Peapods' proven DeFi infrastructure and volatility farming expertise to launch memecoins that last. 
-            The institutional way to turn memes into sustainable assets.
+            Step-by-step guide to launching memes that actually farm yield instead of hoping for lucky pumps. 
+            Even your wife's boyfriend could understand this.
           </p>
           <div className="mb-12">
             <LaunchDialog />
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {features.map((feature, index) => (
-            <Card key={index} className="gradient-card border-primary/20 p-6 hover:scale-105 transition-all duration-300 group">
-              <div className={`w-12 h-12 rounded-lg ${feature.glow} gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                <feature.icon className={`h-6 w-6 text-primary-foreground`} />
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-card-foreground">{feature.title}</h3>
-              <p className="text-muted-foreground">{feature.description}</p>
-            </Card>
-          ))}
-        </div>
-
-        {/* Launch Process */}
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-bold text-center mb-8 text-card-foreground">
-            The Peapods Advantage
-          </h3>
+        {/* How It Works Section - MOVED UP */}
+        <div className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { step: "1", title: "Design Yield Strategy", desc: "Create volatility farming mechanisms" },
-              { step: "2", title: "Deploy on Peapods", desc: "Leverage $51M+ TVL infrastructure" },
-              { step: "3", title: "Create LVF Pod", desc: "Turn volatility into yield" },
-              { step: "4", title: "Scale Institutionally", desc: "Build MicroStrategy-level conviction" },
+              { step: "1", title: "Create Your Meme", desc: "Deploy token with yield mechanics" },
+              { step: "2", title: "Stack The Pods", desc: "Leverage $51M+ TVL infrastructure" },
+              { step: "3", title: "Farm The Volatility", desc: "Turn market chaos into steady gains" },
+              { step: "4", title: "Diamond Hand", desc: "Hold like Saylor, earn like a chad" },
             ].map((item, index) => (
               <Card key={index} className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform">
                 <div className="w-8 h-8 gradient-accent rounded-full flex items-center justify-center mx-auto mb-3 text-accent-foreground font-bold">
@@ -98,6 +82,28 @@ const LaunchSection = () => {
               </Card>
             ))}
           </div>
+        </div>
+
+        <div className="text-center mb-16">
+          <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+            Why This Isn't Another Rug
+          </h3>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
+            Built different. These features separate the chads from the jeets.
+          </p>
+        </div>
+
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <Card key={index} className="gradient-card border-primary/20 p-6 hover:scale-105 transition-all duration-300 group">
+              <div className={`w-12 h-12 rounded-lg ${feature.glow} gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <feature.icon className={`h-6 w-6 text-primary-foreground`} />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-card-foreground">{feature.title}</h3>
+              <p className="text-muted-foreground">{feature.description}</p>
+            </Card>
+          ))}
         </div>
       </div>
     </section>

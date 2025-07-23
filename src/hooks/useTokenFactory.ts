@@ -13,10 +13,9 @@ import {
 export const useTokenFactory = () => {
   const { address, isConnected } = useAccount()
   const [isDeploying, setIsDeploying] = useState(false)
-  const [deploymentTxHash, setDeploymentTxHash] = useState<string | null>(null)
 
   // Write contract hook for token deployment
-  const { writeContract, data: deployTxHash, error: deployError } = useWriteContract()
+  const { writeContractAsync, data: deployTxHash, error: deployError } = useWriteContract()
 
   // Wait for deployment transaction
   const { data: deployReceipt, isLoading: isWaitingForReceipt } = useWaitForTransactionReceipt({
@@ -26,7 +25,7 @@ export const useTokenFactory = () => {
 
   // Read deployment fee
   const { data: deploymentFee } = useReadContract({
-    address: CONTRACT_ADDRESSES.TOKEN_FACTORY,
+    address: CONTRACT_ADDRESSES.TOKEN_FACTORY as `0x${string}`,
     abi: TOKEN_FACTORY_ABI,
     functionName: 'deploymentFee',
     chainId: base.id
@@ -34,7 +33,7 @@ export const useTokenFactory = () => {
 
   // Read deployment stats
   const { data: deploymentStats, refetch: refetchStats } = useReadContract({
-    address: CONTRACT_ADDRESSES.TOKEN_FACTORY,
+    address: CONTRACT_ADDRESSES.TOKEN_FACTORY as `0x${string}`,
     abi: TOKEN_FACTORY_ABI,
     functionName: 'getDeploymentStats',
     chainId: base.id
@@ -42,7 +41,7 @@ export const useTokenFactory = () => {
 
   // Read all deployed tokens
   const { data: allTokens, refetch: refetchTokens } = useReadContract({
-    address: CONTRACT_ADDRESSES.TOKEN_FACTORY,
+    address: CONTRACT_ADDRESSES.TOKEN_FACTORY as `0x${string}`,
     abi: TOKEN_FACTORY_ABI,
     functionName: 'getAllTokens',
     chainId: base.id
@@ -50,7 +49,7 @@ export const useTokenFactory = () => {
 
   // Read tokens by creator
   const { data: creatorTokens, refetch: refetchCreatorTokens } = useReadContract({
-    address: CONTRACT_ADDRESSES.TOKEN_FACTORY,
+    address: CONTRACT_ADDRESSES.TOKEN_FACTORY as `0x${string}`,
     abi: TOKEN_FACTORY_ABI,
     functionName: 'getTokensByCreator',
     args: address ? [address] : undefined,
@@ -78,7 +77,7 @@ export const useTokenFactory = () => {
       const creatorAllocationNumber = BigInt(parseInt(params.creatorAllocation))
       const deploymentFeeBigInt = deploymentFee as bigint
 
-      writeContract({
+      const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESSES.TOKEN_FACTORY as `0x${string}`,
         abi: TOKEN_FACTORY_ABI,
         functionName: 'deployToken',
@@ -92,16 +91,14 @@ export const useTokenFactory = () => {
         value: deploymentFeeBigInt
       })
 
-      if (deployTxHash) {
-        setDeploymentTxHash(deployTxHash)
-      }
+      return txHash
     } catch (error) {
       console.error('Token deployment failed:', error)
       throw error
     } finally {
       setIsDeploying(false)
     }
-  }, [isConnected, address, deploymentFee, writeContract, deployTxHash])
+  }, [isConnected, address, deploymentFee, writeContractAsync])
 
   // Get token info by address
   const getTokenInfo = useCallback(async (tokenAddress: string): Promise<TokenInfo | null> => {
@@ -127,7 +124,6 @@ export const useTokenFactory = () => {
   return {
     // State
     isDeploying: isDeploying || isWaitingForReceipt,
-    deploymentTxHash,
     deployReceipt,
     deployError,
     

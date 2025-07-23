@@ -32,14 +32,29 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent leading-tight animate-fade-in">
-            Based Memecoin 
+            Single-Sided LP
             <br />
-            <span className="text-4xl md:text-6xl">MicroStrategy</span>
+            <span className="text-4xl md:text-6xl">Flywheel</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            🚀 Launch tokens that buy back their own chart. Diamond hands only. No jeets allowed. Pure number go up technology.
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in leading-relaxed" style={{ animationDelay: "0.2s" }}>
+            Launch tokens with automated buyback mechanics. Users add single-sided liquidity, borrow against their LP positions, and the protocol uses fees to continuously buy back tokens - creating an infinite loop that drives price up.
           </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            <div className="bg-card/50 backdrop-blur-sm border border-primary/20 rounded-lg p-4 text-center">
+              <div className="text-lg font-semibold text-primary mb-1">1. Add Liquidity</div>
+              <div className="text-sm text-muted-foreground">Single-sided deposits, no impermanent loss</div>
+            </div>
+            <div className="bg-card/50 backdrop-blur-sm border border-secondary/20 rounded-lg p-4 text-center">
+              <div className="text-lg font-semibold text-secondary mb-1">2. Borrow & Earn</div>
+              <div className="text-sm text-muted-foreground">Use LP as collateral for leveraged positions</div>
+            </div>
+            <div className="bg-card/50 backdrop-blur-sm border border-accent/20 rounded-lg p-4 text-center">
+              <div className="text-lg font-semibold text-accent mb-1">3. Auto Buyback</div>
+              <div className="text-sm text-muted-foreground">Protocol fees continuously pump your bags</div>
+            </div>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             <LaunchDialog />

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TrendingUp, DollarSign, Zap } from "lucide-react";
-import heroImage from "@/assets/hero-image.jpg";
+import farmerPepeHero from "@/assets/farmer-pepe-hero.jpg";
 import LaunchDialog from "@/components/LaunchDialog";
 
 const Hero = () => {
@@ -10,8 +10,8 @@ const Hero = () => {
       {/* Animated Background */}
       <div className="absolute inset-0">
         <img 
-          src={heroImage} 
-          alt="Meme Launchpad Hero" 
+          src={farmerPepeHero} 
+          alt="Farmer Pepe Cultivating Peas" 
           className="w-full h-full object-cover opacity-20"
         />
         <div className="absolute inset-0 gradient-hero" />

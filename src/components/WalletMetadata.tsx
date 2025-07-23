@@ -19,15 +19,26 @@ const WalletMetadata = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log('🔍 WalletMetadata useEffect:', { 
+      authenticated, 
+      walletAddress: user?.wallet?.address,
+      userObject: user 
+    });
+    
     const fetchMetadata = async () => {
-      if (!authenticated || !user?.wallet?.address) return;
+      if (!authenticated || !user?.wallet?.address) {
+        console.log('❌ No wallet connected or not authenticated');
+        return;
+      }
       
+      console.log('🚀 Fetching metadata for:', user.wallet.address);
       setLoading(true);
       try {
         const data = await getWalletMetadata(user.wallet.address);
+        console.log('✅ Metadata fetched:', data);
         setMetadata(data);
       } catch (error) {
-        console.error('Failed to fetch wallet metadata:', error);
+        console.error('❌ Failed to fetch wallet metadata:', error);
       } finally {
         setLoading(false);
       }

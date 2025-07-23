@@ -3,6 +3,7 @@ export const BASE_RPC_URL = 'https://mainnet.base.org';
 
 // Simple fetch-based ETH balance
 export const getEthBalance = async (address: string): Promise<string> => {
+  console.log('🔗 Fetching ETH balance for:', address);
   try {
     const response = await fetch(BASE_RPC_URL, {
       method: 'POST',
@@ -18,15 +19,19 @@ export const getEthBalance = async (address: string): Promise<string> => {
     });
 
     const data = await response.json();
+    console.log('🔗 RPC Response:', data);
+    
     if (data.result) {
       // Convert hex to decimal and then to ETH
       const balanceWei = BigInt(data.result);
       const balanceEth = Number(balanceWei) / 1e18;
+      console.log('✅ Balance converted:', balanceEth.toString());
       return balanceEth.toString();
     }
+    console.log('❌ No result in RPC response');
     return '0';
   } catch (error) {
-    console.error('Error fetching ETH balance:', error);
+    console.error('❌ Error fetching ETH balance:', error);
     return '0';
   }
 };

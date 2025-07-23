@@ -21,14 +21,24 @@ const WalletButton = () => {
 
   // Fetch ETH balance when wallet is connected
   useEffect(() => {
+    console.log('🔍 WalletButton useEffect:', { 
+      authenticated, 
+      walletAddress: user?.wallet?.address 
+    });
+    
     const fetchBalance = async () => {
-      if (authenticated && user?.wallet?.address) {
-        try {
-          const balance = await getEthBalance(user.wallet.address);
-          setEthBalance(balance);
-        } catch (error) {
-          console.error('Failed to fetch balance:', error);
-        }
+      if (!authenticated || !user?.wallet?.address) {
+        console.log('❌ WalletButton: No wallet to fetch balance for');
+        return;
+      }
+      
+      console.log('🚀 WalletButton: Fetching balance for:', user.wallet.address);
+      try {
+        const balance = await getEthBalance(user.wallet.address);
+        console.log('✅ WalletButton: Balance fetched:', balance);
+        setEthBalance(balance);
+      } catch (error) {
+        console.error('❌ WalletButton: Failed to fetch balance:', error);
       }
     };
 

@@ -5,43 +5,43 @@ import LaunchDialog from "@/components/LaunchDialog";
 const features = [
   {
     icon: Rocket,
-    title: "The Flywheel Effect",
-    description: "Create token → Pod it → Lenders deposit USDC/WETH → You borrow against treasury → Buy back your chart. Infinite money glitch unlocked.",
+    title: "The LP Flywheel Effect",
+    description: "Create token → Deposit single-sided → Get LP positions → Borrow against LP → Buy back chart → Repeat. Infinite liquidity machine.",
     color: "text-primary",
     glow: "glow-primary",
   },
   {
     icon: Shield,
-    title: "Borrow Against Your Bag", 
-    description: "Use your memecoin treasury as collateral to borrow USDC/WETH. No selling needed, just pure leverage autism.",
+    title: "Single-Sided LP Deposits", 
+    description: "Deposit only your token to get LP positions. No need for paired assets. Your tokens automatically become liquidity providers.",
     color: "text-secondary",
     glow: "glow-secondary",
   },
   {
     icon: Zap,
-    title: "Lender Yield Farming",
-    description: "Degens deposit USDC/WETH to earn yield from your borrows. They get paid, you get liquidity. Everyone wins except jeets.",
+    title: "Borrow Against LP",
+    description: "Use your LP positions as collateral to borrow USDC/WETH. Every deposit increases your borrowing power automatically.",
     color: "text-accent",
     glow: "glow-accent",
   },
   {
     icon: TrendingUp,
-    title: "Chart Buyback Machine",
-    description: "Borrow → Buy back your token → Price goes up → Repeat. The ultimate diamond hands strategy that pumps your own bags.",
+    title: "Automated Buyback Loop",
+    description: "Borrow → Buy back tokens → Deposit new tokens → Get more LP → Borrow more → Repeat. Chart only goes up.",
     color: "text-primary",
     glow: "glow-primary",
   },
   {
     icon: Users,
-    title: "Treasury Growth Loop",
-    description: "As token price rises, treasury value increases, borrow capacity grows, more buybacks possible. It's like printing money but legal.",
+    title: "LP Value Appreciation",
+    description: "As token price rises, LP positions become worth more, borrow capacity grows, more buybacks possible. Exponential gains.",
     color: "text-secondary",
     glow: "glow-secondary",
   },
   {
     icon: Lock,
-    title: "No Rug Mechanics",
-    description: "Everything's on-chain and automated. Can't rug what's coded into the smart contract. Pure trustless degeneracy.",
+    title: "No Impermanent Loss Risk",
+    description: "Single-sided deposits mean no IL exposure. You only deposit your token, maintain full upside, while earning LP fees.",
     color: "text-accent",
     glow: "glow-accent",
   },
@@ -53,11 +53,11 @@ const LaunchSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
-            The Memecoin Flywheel (For Smoothbrains)
+            The Single-Sided LP Flywheel (For Big Brains)
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
-            The most based borrowing mechanism ever created. Turn your meme treasury into infinite buyback fuel. 
-            This is how you diamond hand like Saylor but with 100x more autism.
+            The most advanced single-sided liquidity system ever created. Deposit your tokens, get LP positions, 
+            borrow against them, and create infinite buyback loops. This is how you farm your own chart to the moon.
           </p>
           <div className="mb-12">
             <LaunchDialog />
@@ -68,10 +68,10 @@ const LaunchSection = () => {
         <div className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { step: "🌱", title: "Plant Your Seed", desc: "Deploy token with borrowing mechanics", detail: "Launch your memecoin with built-in treasury and borrowing capabilities" },
-              { step: "🎒", title: "Pod The Bags", desc: "Set up lending pool for degens", detail: "Create a pod where lenders can deposit USDC/WETH to earn yield from your borrows" },
-              { step: "💰", title: "Lenders Deposit", desc: "Gigachads supply liquidity", detail: "Yield farmers deposit USDC/WETH to earn returns while providing borrow liquidity" },
-              { step: "🚀", title: "Pump Machine", desc: "Borrow → Buy → Moon → Repeat", detail: "Higher price = bigger treasury = more borrow capacity = more buybacks = moon" },
+              { step: "🌱", title: "Create & Deploy", desc: "Launch token with LP mechanics", detail: "Deploy your memecoin with built-in single-sided LP functionality" },
+              { step: "💧", title: "Single-Sided Deposit", desc: "Deposit tokens for LP positions", detail: "Add liquidity using only your token - no paired assets needed" },
+              { step: "💰", title: "Borrow Against LP", desc: "Use LP as collateral", detail: "Borrow USDC/WETH against your growing LP positions" },
+              { step: "🚀", title: "Buyback & Repeat", desc: "Buy back → Deposit → Compound", detail: "Create infinite loops of buybacks and liquidity growth" },
             ].map((item, index) => (
               <Card key={index} className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform group">
                 <div className="w-12 h-12 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -87,10 +87,10 @@ const LaunchSection = () => {
 
         <div className="text-center mb-16">
           <h3 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-            Why This Flywheel Is Different
+            Why Single-Sided LP is Superior
           </h3>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto mb-8">
-            Every other token dies because founders dump. This flywheel makes dumping impossible - you literally profit more by buying back your own chart.
+            Traditional LP requires paired assets and exposes you to impermanent loss. Our system lets you deposit only your token while maintaining full upside.
           </p>
         </div>
 

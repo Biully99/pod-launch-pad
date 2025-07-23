@@ -136,10 +136,10 @@ const LaunchDialog = () => {
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Launch Your Flywheel Token
+            Launch Your Single-Sided LP Token
           </DialogTitle>
           <DialogDescription>
-            Deploy borrowing-enabled memecoins that buy back their own chart. No rugs, just infinite loops.
+            Deploy tokens with single-sided LP deposits. Users deposit only your token to get LP positions and borrow against them.
           </DialogDescription>
         </DialogHeader>
 
@@ -253,7 +253,7 @@ const LaunchDialog = () => {
                 <span className="text-sm font-semibold text-primary">{deploymentFee} ETH</span>
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                Covers Base deployment + flywheel setup (infinite money glitch activation fee)
+                Covers Base deployment + single-sided LP setup (infinite liquidity machine activation fee)
               </p>
             </div>
           </Card>

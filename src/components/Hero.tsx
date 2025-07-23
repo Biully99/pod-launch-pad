@@ -32,20 +32,20 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent leading-tight">
-            Meme Market 
+            Single-Sided LP 
             <br />
-            MicroStrategy
+            Flywheel
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Diamond hands only. Borrow against your meme treasury, buy back your chart, activate the flywheel. No selling, just infinite buyback loops.
+            Deposit only your token → Get LP positions → Borrow against LP → Buy back chart → Repeat. No impermanent loss, infinite gains.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <LaunchDialog />
-            <Button variant="outline" size="xl">
+            <Button variant="outline" size="xl" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
               <TrendingUp className="h-5 w-5" />
-              Check The Vault
+              How It Works
             </Button>
           </div>
 
@@ -53,20 +53,20 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <Card className="gradient-card border-primary/20 p-6 text-center hover:scale-105 transition-transform">
               <DollarSign className="h-8 w-8 text-primary mx-auto mb-2" />
-              <div className="text-2xl font-bold text-primary">∞</div>
-              <div className="text-sm text-muted-foreground">Flywheel Loops</div>
+              <div className="text-2xl font-bold text-primary">🔄</div>
+              <div className="text-sm text-muted-foreground">LP Loops</div>
             </Card>
             
             <Card className="gradient-card border-secondary/20 p-6 text-center hover:scale-105 transition-transform">
               <Zap className="h-8 w-8 text-secondary mx-auto mb-2" />
               <div className="text-2xl font-bold text-secondary">0%</div>
-              <div className="text-sm text-muted-foreground">Sell Pressure</div>
+              <div className="text-sm text-muted-foreground">Impermanent Loss</div>
             </Card>
             
             <Card className="gradient-card border-accent/20 p-6 text-center hover:scale-105 transition-transform">
               <TrendingUp className="h-8 w-8 text-accent mx-auto mb-2" />
-              <div className="text-2xl font-bold text-accent">💎🙌</div>
-              <div className="text-sm text-muted-foreground">Only Diamond Hands</div>
+              <div className="text-2xl font-bold text-accent">🏦</div>
+              <div className="text-sm text-muted-foreground">Borrow Capacity</div>
             </Card>
           </div>
         </div>

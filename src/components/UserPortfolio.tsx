@@ -17,7 +17,6 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WalletMetadata from "@/components/WalletMetadata";
-import TrendingTokens from "@/components/TrendingTokens";
 import { Link } from "react-router-dom";
 
 // Mock user token data
@@ -156,14 +155,7 @@ const UserPortfolio = () => {
         </div>
 
         {/* Real Wallet Metadata */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          <div className="lg:col-span-2">
-            <WalletMetadata />
-          </div>
-          <div className="lg:col-span-1">
-            <TrendingTokens />
-          </div>
-        </div>
+        <WalletMetadata />
 
         {/* Portfolio Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

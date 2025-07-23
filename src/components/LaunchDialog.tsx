@@ -12,23 +12,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Rocket, Upload, DollarSign, Clock } from 'lucide-react'
+import { Rocket, Upload, DollarSign, Clock, ExternalLink } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { useAccount } from 'wagmi'
+import { useTokenFactory } from '@/hooks/useTokenFactory'
+import { getExplorerUrl } from '@/lib/contracts'
 
 const LaunchDialog = () => {
   const [formData, setFormData] = useState({
     name: '',
     symbol: '',
     description: '',
+    maxSupply: '1000000', // 1M tokens default
     fundraisingTarget: '',
     creatorAllocation: '5',
-    lpLockDuration: '30'
   })
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
   const { isConnected } = useAccount()
+  const { 
+    deployToken, 
+    isDeploying, 
+    deploymentFee, 
+    deployReceipt, 
+    deployError,
+    deploymentTxHash 
+  } = useTokenFactory()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -46,14 +56,14 @@ const LaunchDialog = () => {
     if (!isConnected) {
       toast({
         title: "Wallet Not Connected",
-        description: "Please connect your wallet first",
+        description: "Please connect your wallet to Base network first",
         variant: "destructive"
       })
       return
     }
 
     // Basic validation
-    if (!formData.name || !formData.symbol || !formData.fundraisingTarget) {
+    if (!formData.name || !formData.symbol || !formData.fundraisingTarget || !formData.maxSupply) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields",
@@ -62,31 +72,57 @@ const LaunchDialog = () => {
       return
     }
 
-    // Simulate token launch process
-    toast({
-      title: "Launch Initiated! 🚀",
-      description: "Your meme token launch is being processed...",
-    })
+    try {
+      toast({
+        title: "Deploying Token 🚀",
+        description: "Your Peapods memecoin is being deployed to Base chain...",
+      })
 
-    // Close dialog and reset form
+      await deployToken({
+        name: formData.name,
+        symbol: formData.symbol,
+        maxSupply: formData.maxSupply,
+        fundraisingTarget: formData.fundraisingTarget,
+        creatorAllocation: formData.creatorAllocation,
+        deploymentFee: deploymentFee
+      })
+
+    } catch (error) {
+      toast({
+        title: "Deployment Failed",
+        description: error instanceof Error ? error.message : "Failed to deploy token",
+        variant: "destructive"
+      })
+    }
+  }
+
+  // Handle successful deployment
+  if (deployReceipt) {
+    toast({
+      title: "Token Deployed Successfully! 🎉",
+      description: `${formData.name} is now live on Base chain!`,
+    })
+    
+    // Reset form and close dialog
     setIsOpen(false)
     setFormData({
       name: '',
       symbol: '',
       description: '',
+      maxSupply: '1000000',
       fundraisingTarget: '',
       creatorAllocation: '5',
-      lpLockDuration: '30'
     })
     setSelectedFile(null)
+  }
 
-    // Simulate success after delay
-    setTimeout(() => {
-      toast({
-        title: "Token Deployed Successfully! 🎉",
-        description: `Your token is now live and ready for trading!`,
-      })
-    }, 3000)
+  // Handle deployment error
+  if (deployError) {
+    toast({
+      title: "Deployment Error",
+      description: deployError.message,
+      variant: "destructive"
+    })
   }
 
   return (
@@ -129,6 +165,16 @@ const LaunchDialog = () => {
                   name="symbol"
                   placeholder="BPEPE"
                   value={formData.symbol}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <Label htmlFor="maxSupply">Max Supply *</Label>
+                <Input
+                  id="maxSupply"
+                  name="maxSupply"
+                  placeholder="1000000"
+                  value={formData.maxSupply}
                   onChange={handleInputChange}
                 />
               </div>
@@ -179,7 +225,8 @@ const LaunchDialog = () => {
                   id="fundraisingTarget"
                   name="fundraisingTarget"
                   type="number"
-                  placeholder="10"
+                  step="0.1"
+                  placeholder="10.0"
                   value={formData.fundraisingTarget}
                   onChange={handleInputChange}
                 />
@@ -190,25 +237,24 @@ const LaunchDialog = () => {
                   id="creatorAllocation"
                   name="creatorAllocation"
                   type="number"
+                  min="1"
+                  max="20"
                   placeholder="5"
                   value={formData.creatorAllocation}
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
-                <Label htmlFor="lpLockDuration" className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  LP Lock Duration (days)
-                </Label>
-                <Input
-                  id="lpLockDuration"
-                  name="lpLockDuration"
-                  type="number"
-                  placeholder="30"
-                  value={formData.lpLockDuration}
-                  onChange={handleInputChange}
-                />
+            </div>
+            
+            {/* Deployment Fee Info */}
+            <div className="mt-4 p-3 bg-primary/10 rounded-lg border border-primary/20">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Deployment Fee:</span>
+                <span className="text-sm font-semibold text-primary">{deploymentFee} ETH</span>
               </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                Covers Base chain deployment and Peapods integration setup
+              </p>
             </div>
           </Card>
 
@@ -218,11 +264,30 @@ const LaunchDialog = () => {
             className="w-full" 
             variant="hero" 
             size="lg"
-            disabled={!isConnected}
+            disabled={!isConnected || isDeploying}
           >
             <Rocket className="h-5 w-5 mr-2" />
-            {isConnected ? 'Deploy Token & Create LP' : 'Connect Wallet to Launch'}
+            {isDeploying 
+              ? 'Deploying to Base...' 
+              : isConnected 
+                ? `Deploy Token (${deploymentFee} ETH)` 
+                : 'Connect Wallet to Launch'
+            }
           </Button>
+
+          {/* Transaction Link */}
+          {deploymentTxHash && (
+            <div className="text-center">
+              <a 
+                href={getExplorerUrl(deploymentTxHash)} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-glow transition-colors"
+              >
+                View on BaseScan <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>

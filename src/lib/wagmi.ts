@@ -1,30 +1,31 @@
 import { http, createConfig } from 'wagmi'
-import { base, arbitrum, mainnet } from 'wagmi/chains'
-import { injected, metaMask, walletConnect } from 'wagmi/connectors'
+import { base, mainnet } from 'wagmi/chains'
+import { injected, walletConnect, coinbaseWallet } from 'wagmi/connectors'
 
-// Get WalletConnect project ID - you can get one free at https://cloud.walletconnect.com
-const projectId = 'demo' // Replace with your actual project ID
+const projectId = 'your-wallet-connect-project-id' // Replace with your WalletConnect project ID
 
 export const config = createConfig({
-  chains: [base, arbitrum, mainnet],
+  chains: [base, mainnet],
   connectors: [
     injected(),
-    metaMask(),
-    walletConnect({ 
+    coinbaseWallet({
+      appName: 'Peapods Meme Launchpad',
+      appLogoUrl: 'https://peapods.finance/assets/logo.png'
+    }),
+    walletConnect({
       projectId,
       metadata: {
-        name: 'PeapodPump',
-        description: 'Meme Token Launchpad',
-        url: 'https://peapodpump.com',
-        icons: ['https://peapodpump.com/icon.png']
+        name: 'Peapods Meme Launchpad',
+        description: 'The MicroStrategy of Memecoins - Launch yield-generating tokens on Base with Peapods',
+        url: 'https://peapods-meme-launchpad.com',
+        icons: ['https://peapods.finance/assets/logo.png']
       }
-    }),
+    })
   ],
   transports: {
-    [mainnet.id]: http(),
-    [arbitrum.id]: http(),
-    [base.id]: http(),
-  },
+    [base.id]: http('https://mainnet.base.org'),
+    [mainnet.id]: http()
+  }
 })
 
 declare module 'wagmi' {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -136,28 +136,32 @@ const LaunchDialog = () => {
     }
   }
 
-  // Handle successful deployment
-  if (deployReceipt && !isOpen) {
-    const successMessage = podCreationStatus === 'success' 
-      ? `${formData.name} is now live with Peapods Pod created!`
-      : podCreationStatus === 'failed'
-      ? `${formData.name} is live! (Pod creation failed but token works fine)`
-      : `${formData.name} is now live and ready to farm!`;
-      
-    toast({
-      title: "Token Deployed Successfully! 🎉",
-      description: successMessage,
-    });
-  }
+  // Handle successful deployment with useEffect to prevent infinite re-renders
+  useEffect(() => {
+    if (deployReceipt && !isOpen) {
+      const successMessage = podCreationStatus === 'success' 
+        ? `${formData.name} is now live with Peapods Pod created!`
+        : podCreationStatus === 'failed'
+        ? `${formData.name} is live! (Pod creation failed but token works fine)`
+        : `${formData.name} is now live and ready to farm!`;
+        
+      toast({
+        title: "Token Deployed Successfully! 🎉",
+        description: successMessage,
+      });
+    }
+  }, [deployReceipt, isOpen, podCreationStatus, formData.name, toast])
 
-  // Handle deployment error
-  if (deployError) {
-    toast({
-      title: "Deployment Error",
-      description: deployError.message,
-      variant: "destructive"
-    })
-  }
+  // Handle deployment error with useEffect to prevent infinite re-renders
+  useEffect(() => {
+    if (deployError) {
+      toast({
+        title: "Deployment Error",
+        description: deployError.message,
+        variant: "destructive"
+      })
+    }
+  }, [deployError, toast])
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

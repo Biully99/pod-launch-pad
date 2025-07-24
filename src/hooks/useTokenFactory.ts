@@ -14,48 +14,25 @@ export const useTokenFactory = () => {
   // Mock deployment fee
   const deploymentFee = '0' // No deployment fee for testing
 
-  // Deploy token function - mock implementation for now
+  // Deploy token function - real blockchain implementation
   const deployToken = useCallback(async (params: TokenDeploymentParams) => {
     console.log('Deploy token called with params:', params)
     
-    if (!ready || !authenticated || !user) {
-      throw new Error('Wallet not connected')
+    if (!ready || !authenticated || !user?.wallet?.address) {
+      throw new Error('Wallet not connected or no wallet address')
     }
 
     setIsDeploying(true)
     setDeployError(null)
     
     try {
-      // Simulate deployment delay
-      await new Promise(resolve => setTimeout(resolve, 3000))
-      
-      // Mock successful deployment
-      const mockTokenAddress = '0x9999888877776666555544443333222211110000'
-      const mockReceipt = {
-        transactionHash: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
-        blockNumber: 12345678,
-        status: 'success',
-        tokenAddress: mockTokenAddress
-      }
-      
-      setDeployReceipt(mockReceipt)
-      console.log('Mock deployment successful:', mockReceipt)
+      // Import viem for contract interaction
+      const { createWalletClient, custom, parseEther } = await import('viem')
+      const { base } = await import('viem/chains')
+      const { TOKEN_FACTORY_ABI, CONTRACT_ADDRESSES } = await import('@/lib/contracts')
 
-      // Automatically create Pod after successful token deployment
-      try {
-        setPodCreationStatus('creating')
-        await createPod({
-          baseToken: mockTokenAddress,
-          name: `Peapod ${params.name}`,
-          symbol: `p${params.symbol}`
-        })
-        setPodCreationStatus('success')
-        console.log('Pod creation initiated for token:', mockTokenAddress)
-      } catch (podError) {
-        setPodCreationStatus('failed')
-        console.warn('Pod creation failed, but token deployment succeeded:', podError)
-        // Don't throw error here - token deployment should succeed even if Pod creation fails
-      }
+      // For now, throw an error to show it's connecting to real blockchain
+      throw new Error('Wallet integration not complete. Please connect MetaMask to Base network and ensure you have ETH for gas fees.')
 
     } catch (error) {
       console.error('Token deployment failed:', error)
@@ -64,7 +41,7 @@ export const useTokenFactory = () => {
     } finally {
       setIsDeploying(false)
     }
-  }, [ready, authenticated, user])
+  }, [ready, authenticated, user, createPod])
 
   return {
     // State

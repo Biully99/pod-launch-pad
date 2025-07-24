@@ -24,6 +24,7 @@ export const useTokenFactory = () => {
 
     setIsDeploying(true)
     setDeployError(null)
+    setDeployReceipt(null) // Clear previous receipt
     
     try {
       // Import viem for contract interaction
@@ -31,8 +32,12 @@ export const useTokenFactory = () => {
       const { base } = await import('viem/chains')
       const { TOKEN_FACTORY_ABI, CONTRACT_ADDRESSES } = await import('@/lib/contracts')
 
-      // For now, throw an error to show it's connecting to real blockchain
-      throw new Error('Wallet integration not complete. Please connect MetaMask to Base network and ensure you have ETH for gas fees.')
+      // Real blockchain deployment would happen here
+      // For now, we're throwing an error to indicate the wallet/contract integration is incomplete
+      console.log('Would connect to wallet and deploy contract with these params:', params)
+      console.log('User wallet address:', user.wallet.address)
+      
+      throw new Error('Blockchain integration incomplete: Smart contracts need to be deployed on Base network. Connect MetaMask and ensure you have ETH for gas fees.')
 
     } catch (error) {
       console.error('Token deployment failed:', error)
@@ -41,7 +46,7 @@ export const useTokenFactory = () => {
     } finally {
       setIsDeploying(false)
     }
-  }, [ready, authenticated, user, createPod])
+  }, [ready, authenticated, user])
 
   return {
     // State

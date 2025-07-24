@@ -138,7 +138,7 @@ const LaunchDialog = () => {
 
   // Handle successful deployment with useEffect to prevent infinite re-renders
   useEffect(() => {
-    if (deployReceipt && !isOpen) {
+    if (deployReceipt && deployReceipt.status === 'success') {
       const successMessage = podCreationStatus === 'success' 
         ? `${formData.name} is now live with Peapods Pod created!`
         : podCreationStatus === 'failed'
@@ -150,7 +150,7 @@ const LaunchDialog = () => {
         description: successMessage,
       });
     }
-  }, [deployReceipt, isOpen, podCreationStatus, formData.name, toast])
+  }, [deployReceipt, podCreationStatus, formData.name, toast])
 
   // Handle deployment error with useEffect to prevent infinite re-renders
   useEffect(() => {

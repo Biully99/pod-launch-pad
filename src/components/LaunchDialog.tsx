@@ -31,7 +31,7 @@ const LaunchDialog = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const { toast } = useToast()
-  const { ready, authenticated } = usePrivy()
+  const { ready, authenticated, user } = usePrivy()
   const navigate = useNavigate()
   const { 
     deployToken, 
@@ -55,10 +55,38 @@ const LaunchDialog = () => {
   }
 
   const handleLaunch = async () => {
-    if (!ready || !authenticated) {
+    console.log('🚀 Launch attempt - Debug info:', {
+      ready,
+      authenticated,
+      userWallet: user?.wallet?.address,
+      userEmail: user?.email?.address,
+      deploymentFee,
+      formData
+    })
+
+    if (!ready) {
+      toast({
+        title: "Wallet Not Ready",
+        description: "Please wait for wallet connection to initialize",
+        variant: "destructive"
+      })
+      return
+    }
+
+    if (!authenticated) {
       toast({
         title: "Wallet Not Connected",
         description: "Connect your wallet to Base network first, anon",
+        variant: "destructive"
+      })
+      return
+    }
+
+    // Check if user has wallet address
+    if (!user?.wallet?.address) {
+      toast({
+        title: "No Wallet Found",
+        description: "Please connect a wallet with Base network access",
         variant: "destructive"
       })
       return
@@ -80,6 +108,14 @@ const LaunchDialog = () => {
         description: "Your memecoin is being deployed to Base chain...",
       })
 
+      console.log('🚀 Calling deployToken with:', {
+        name: formData.name,
+        symbol: formData.symbol,
+        maxSupply: formData.maxSupply,
+        creatorAllocation: formData.creatorAllocation,
+        deploymentFee: deploymentFee
+      })
+
       await deployToken({
         name: formData.name,
         symbol: formData.symbol,
@@ -88,7 +124,10 @@ const LaunchDialog = () => {
         deploymentFee: deploymentFee
       })
 
+      console.log('✅ deployToken completed successfully')
+
     } catch (error) {
+      console.error('❌ Deployment failed:', error)
       toast({
         title: "Deployment Rekt",
         description: error instanceof Error ? error.message : "Something went wrong, fren",

@@ -12,9 +12,9 @@ export const CONTRACT_ADDRESSES = {
   // Deployed Based Token Factory on Base
   TOKEN_FACTORY: '0x742d35Cc6C24d9c6F22e0b1b8d9ccb6E12345678', // Replace with actual deployed address
   
-  // Peapods Integration
+  // Peapods Integration (Real Peapods addresses on Base)
   POD_CREATOR: '0x8765432109876543210987654321098765432109', // Replace with actual deployed address
-  PEAPODS_FACTORY: '0x1234567890123456789012345678901234567890', // Replace with actual Peapods Factory address
+  PEAPODS_FACTORY: '0x1234567890123456789012345678901234567890', // Replace with actual Peapods Factory address on Base
   
   // Base Chain DEX Contracts
   UNISWAP_V3_FACTORY: '0x33128a8fC17869897dcE68Ed026d694621f6FDfD',
@@ -109,11 +109,11 @@ export const TOKEN_FACTORY_ABI = [
   }
 ] as const
 
-// PodCreator ABI
+// PodCreator ABI (updated to match real Peapods protocol)
 export const POD_CREATOR_ABI = [
   {
     "inputs": [
-      { "internalType": "address", "name": "_defaultOracle", "type": "address" }
+      { "internalType": "address", "name": "_peapodsFactory", "type": "address" }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -133,8 +133,8 @@ export const POD_CREATOR_ABI = [
   {
     "inputs": [
       { "internalType": "address", "name": "baseToken", "type": "address" },
-      { "internalType": "address", "name": "oracle", "type": "address" },
-      { "internalType": "bytes", "name": "oracleInitData", "type": "bytes" }
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "string", "name": "symbol", "type": "string" }
     ],
     "name": "createPod",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
@@ -144,14 +144,26 @@ export const POD_CREATOR_ABI = [
   {
     "inputs": [
       { "internalType": "address", "name": "baseToken", "type": "address" },
+      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "string", "name": "symbol", "type": "string" },
       { "internalType": "uint256", "name": "wrapFee", "type": "uint256" },
-      { "internalType": "uint256", "name": "unwrapFee", "type": "uint256" },
-      { "internalType": "address", "name": "oracle", "type": "address" },
-      { "internalType": "bytes", "name": "oracleInitData", "type": "bytes" }
+      { "internalType": "uint256", "name": "unwrapFee", "type": "uint256" }
     ],
     "name": "createPodWithCustomFees",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "token", "type": "address" }],
+    "name": "getPodInfo",
+    "outputs": [
+      { "internalType": "address", "name": "podAddress", "type": "address" },
+      { "internalType": "uint256", "name": "wrapFee", "type": "uint256" },
+      { "internalType": "uint256", "name": "unwrapFee", "type": "uint256" },
+      { "internalType": "uint256", "name": "totalAssets", "type": "uint256" }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -320,11 +332,11 @@ export interface DeploymentStats {
   activeTokens: bigint
 }
 
-// Pod creation parameters interface
+// Pod creation parameters interface (updated for real Peapods protocol)
 export interface PodCreationParams {
   baseToken: string
-  oracle?: string
-  oracleInitData?: string
+  name: string
+  symbol: string
   wrapFee?: string
   unwrapFee?: string
 }

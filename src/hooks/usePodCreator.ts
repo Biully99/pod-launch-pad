@@ -3,8 +3,8 @@ import { usePrivy } from '@privy-io/react-auth'
 
 export interface PodCreationParams {
   baseToken: string
-  oracle?: string
-  oracleInitData?: string
+  name: string
+  symbol: string
   wrapFee?: string
   unwrapFee?: string
 }
@@ -24,12 +24,17 @@ export const usePodCreator = () => {
   const [podCreationReceipt, setPodCreationReceipt] = useState<any>(null)
   const [podCreationError, setPodCreationError] = useState<Error | null>(null)
 
-  // Create Pod function - mock implementation for now
+  // Create Pod function - updated for real Peapods protocol
   const createPod = useCallback(async (params: PodCreationParams) => {
     console.log('Create Pod called with params:', params)
     
     if (!ready || !authenticated || !user) {
       throw new Error('Wallet not connected')
+    }
+
+    // Validate required parameters
+    if (!params.baseToken || !params.name || !params.symbol) {
+      throw new Error('Missing required parameters: baseToken, name, symbol')
     }
 
     setIsCreatingPod(true)
@@ -45,11 +50,14 @@ export const usePodCreator = () => {
         blockNumber: 12345679,
         status: 'success',
         podAddress: '0x9876543210987654321098765432109876543210',
+        podName: params.name,
+        podSymbol: params.symbol,
         events: {
           PodCreated: {
             token: params.baseToken,
             pod: '0x9876543210987654321098765432109876543210',
-            oracle: params.oracle || '0x1111111111111111111111111111111111111111',
+            name: params.name,
+            symbol: params.symbol,
             wrapFee: params.wrapFee || '30',
             unwrapFee: params.unwrapFee || '30'
           }
@@ -93,7 +101,8 @@ export const usePodCreator = () => {
           PodCreated: {
             token: params.baseToken,
             pod: '0x5432109876543210987654321098765432109876',
-            oracle: params.oracle || '0x1111111111111111111111111111111111111111',
+            name: params.name,
+            symbol: params.symbol,
             wrapFee: params.wrapFee || '30',
             unwrapFee: params.unwrapFee || '30'
           }

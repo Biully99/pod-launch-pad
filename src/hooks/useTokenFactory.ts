@@ -46,8 +46,8 @@ export const useTokenFactory = () => {
         setPodCreationStatus('creating')
         await createPod({
           baseToken: mockTokenAddress,
-          oracle: '0x0000000000000000000000000000000000000000', // Use default oracle
-          oracleInitData: ''
+          name: `Peapod ${params.name}`,
+          symbol: `p${params.symbol}`
         })
         setPodCreationStatus('success')
         console.log('Pod creation initiated for token:', mockTokenAddress)
